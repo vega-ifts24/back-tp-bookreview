@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="../../styles/global.css" />
     <link rel="stylesheet" href="../../styles/form.css" />
     <link rel="stylesheet" href="./mybooks.css" />
-    <link rel="icon" type="image/png" href="./assets/icons/libro.png" />
+    <link rel="icon" type="image/png" href="../../assets/icons/libro.png" />
     <meta charset="utf-8" />
     <meta
       name="viewport"
@@ -27,28 +27,27 @@
     <main>
       <section class="myBooksSection">
         <h2>Mis libros</h2>
-        <article class="galleryBooks">
-
-        </article>
+        <article class="galleryBooks"></article>
       </section>
       <section class="login-data-container">
         <article class="form-container">
           <h2>Reseñar libro</h2>
-          <div class="searchBook">
-            <label for="title"></label>
-            <input
-              type="text"
-              name="searchBook"
-              id="searchBook"
-              placeholder="Buscar libro"
-            />
-            <div
-              id="searchResults"
-              class="searchResults"
-            ></div>
-            <small class="showMessage" id="emailMessage"></small>
-          </div>
+          <form>
+            <div class="searchBook">
+              <label for="title" style="position: relative;">
 
+                <input
+                type="text"
+                name="searchBook"
+                id="searchBook"
+                placeholder="Buscar libro"
+                />
+                <i class="ph ph-magnifying-glass" style="position: absolute; right: 12px; margin-top: 12px;" ></i>
+              </label>
+              <div id="searchResults" class="searchResults"></div>
+              <small class="showMessage" id="emailMessage"></small>
+            </div>
+          </form>
           <div class="book-data">
             <img src="" class="book-cover" />
             <div>
@@ -61,16 +60,16 @@
             <div class="rating-container">
               <p>Puntaje</p>
               <div class="stars-container">
-                <input type="checkbox" id="star1" class="star" />
-                <label for="star1" class="star-label">&#9733;</label>
-                <input type="checkbox" id="star2" class="star" />
-                <label for="star2" class="star-label">&#9733;</label>
-                <input type="checkbox" id="star3" class="star" />
-                <label for="star3" class="star-label">&#9733;</label>
-                <input type="checkbox" id="star4" class="star" />
-                <label for="star4" class="star-label">&#9733;</label>
                 <input type="checkbox" id="star5" class="star" />
                 <label for="star5" class="star-label">&#9733;</label>
+                <input type="checkbox" id="star4" class="star" />
+                <label for="star4" class="star-label">&#9733;</label>
+                <input type="checkbox" id="star3" class="star" />
+                <label for="star3" class="star-label">&#9733;</label>
+                <input type="checkbox" id="star2" class="star" />
+                <label for="star2" class="star-label">&#9733;</label>
+                <input type="checkbox" id="star1" class="star" />
+                <label for="star1" class="star-label">&#9733;</label>
               </div>
             </div>
 
