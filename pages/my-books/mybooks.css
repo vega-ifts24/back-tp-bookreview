@@ -1,3 +1,10 @@
+.myBooksSection {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
 .book-data {
   display: flex;
   gap: 24px;
@@ -121,7 +128,6 @@ textarea {
   padding: 16px;
   display: flex;
   gap: 20px;
-  align-items: center;
   border: 1px solid #ccc;
   border-radius: 8px;
   margin-bottom: 12px;
@@ -136,8 +142,7 @@ textarea {
 
 /* Estilo de la portada del libro */
 .book-review-container img.book-cover {
-  width: 60px;
-  height: 90px;
+  height: 100%;
   object-fit: cover;
   border-radius: 4px;
 }
@@ -152,7 +157,8 @@ textarea {
 
 /* Botones de editar y eliminar */
 .edit-review,
-.delete-review {
+.delete-review, 
+.archivar-review{
   padding: 6px 12px;
   font-size: 14px;
   border: none;
@@ -168,21 +174,22 @@ textarea {
   color: #dc3545;
 }
 
+
 .delete-review,
-.edit-review {
+.edit-review, .archivar-review {
   background-color: transparent;
   width: fit-content;
 }
 
 .delete-review:hover,
-.edit-review:hover {
+.edit-review:hover, .archivar-review:hover {
   background-color: rgba(128, 128, 128, 0.077);
-  
 }
 
 .actions-container {
   height: 100%;
   align-self: top;
+  display: flex;
 }
 
 

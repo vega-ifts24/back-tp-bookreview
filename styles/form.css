@@ -1,4 +1,4 @@
-.login-data-container {
+.form-data-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -118,7 +118,7 @@ form input:focus::placeholder,
 }
 
 @media (max-width: 780px) {
-  .login-data-container {
+  .form-data-container {
     width: 100%;
     height: 95%;
   }
@@ -140,7 +140,7 @@ form input:focus::placeholder,
     width: 275px;
     gap: 16px;
   }
-  .login-data-container {
+  .form-data-container {
     gap: 24px;
   }
   .showMessage {

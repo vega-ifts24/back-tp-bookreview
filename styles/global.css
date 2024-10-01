@@ -28,11 +28,12 @@
 
 /* MOBILE FIRST */
 
+
 body {
+  padding-top: 64px;
   background-color: var(--background-main);
   color: var(--body-color);
   font-family: "Montserrat", sans-serif;
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -333,6 +334,9 @@ footer {
   /* * NAV BAR*/
   main {
     padding-top: calc(88px + 16px);
+  }
+  body {
+    padding: 0;
   }
 
   .headerContainer {

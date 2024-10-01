@@ -2,11 +2,12 @@ import books from "../../utils/constants/books.js";
 
 // Variables y elementos del DOM
 const bookCover = document.querySelector(".book-cover");
+const bookData = document.querySelector(".book-data")
 const bookTitle = document.querySelector(".book-data h4");
 const bookAuthor = document.querySelector(".book-data p");
 const searchResultsContainer = document.getElementById("searchResults");
-const searchInput = document.getElementById("searchBook");
 const form = document.getElementById("review-form");
+const searchInput = document.getElementById("searchBook");
 
 // Variable para almacenar el libro seleccionado
 let selectedBook = null;
@@ -61,6 +62,8 @@ function updateSearchResults(results) {
 window.selectBook = (title) => {
     selectedBook = books.find((book) => book.title === title);
     updateBookData(selectedBook);
+    form.style.display = "flex"
+    bookData.style.display = "flex"
     searchResultsContainer.style.display = "none";
     searchInput.value = selectedBook.title;
 };
@@ -163,8 +166,7 @@ window.editReview = (reviewId) => {
     const reviewToEdit = reviews.find((review) => review.reviewId === reviewId);
 
     if (reviewToEdit) {
-        console.log(books.filter(
-            (item) => reviewToEdit.bookId === item.id))
+
         // Actualiza el formulario con la información de la reseña seleccionada
         selectBook(books.filter(
             (item) => reviewToEdit.bookId === item.id)[0].title)
@@ -184,6 +186,24 @@ window.editReview = (reviewId) => {
         form.dataset.editingReviewId = reviewId;
     }
 }
+// Tachar el libro
+window.archiveBook = (reviewId) => {
+    const reviews = JSON.parse(localStorage.getItem("bookReviews")) || [];
+    const reviewToEdit = reviews.find((review) => review.reviewId === reviewId);
+
+    if (reviewToEdit) {
+        // Alterna el estado de archivado
+        reviewToEdit.archivado = !reviewToEdit.archivado;
+
+        // Actualiza el estilo para indicar si está archivado o no
+        const reviewElement = document.querySelector(`.book-review-container`);
+        reviewElement.style = reviewToEdit.archivado ? "opacity: 0.2" : "opacity: 1";
+
+        // Guarda la lista de reseñas nuevamente en el localStorage
+        localStorage.setItem("bookReviews", JSON.stringify(reviews));
+    }
+}
+
 
 // Función para generar el HTML de la puntuación en estrellas
 function generateStarRating(rating) {
@@ -222,6 +242,7 @@ function displayStoredBooks() {
                        
                     </div>
                     <div class="actions-container">
+                        <button class="archivar-review" onclick="archiveBook('${review.reviewId}')"><i class="ph ph-bookmark-simple"></i></button>
                         <button class="edit-review" onclick="editReview('${review.reviewId}')"><i class="ph ph-pencil-simple"></i></button>
                         <button class="delete-review" onclick="deleteReview('${review.reviewId}')"><i class="ph ph-trash"></i></button>
                     </div>
@@ -292,6 +313,8 @@ function postReview(event) {
     searchResultsContainer.style.display = "none";
     displayStoredBooks();
 }
+
+
 
 
 // Llamar a la función para mostrar los libros al cargar la página

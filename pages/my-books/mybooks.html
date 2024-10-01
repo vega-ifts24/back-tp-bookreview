@@ -29,11 +29,11 @@
         <h2>Mis libros</h2>
         <article class="galleryBooks"></article>
       </section>
-      <section class="login-data-container">
+      <section class="form-data-container">
         <article class="form-container">
           <h2>Reseñar libro</h2>
-          <form>
-            <div class="searchBook">
+          <form id="form-search">
+            <div class="searchBook" >
               <label for="title" style="position: relative;">
 
                 <input
@@ -48,14 +48,14 @@
               <small class="showMessage" id="emailMessage"></small>
             </div>
           </form>
-          <div class="book-data">
+          <div class="book-data" style="display: none;">
             <img src="" class="book-cover" />
             <div>
               <h4>Buscá el libro que querés reseñar</h4>
               <p></p>
             </div>
           </div>
-          <form id="review-form">
+          <form id="review-form" style="display: none;">
             <!-- Puntaje -->
             <div class="rating-container">
               <p>Puntaje</p>
