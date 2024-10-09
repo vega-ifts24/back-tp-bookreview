@@ -64,6 +64,15 @@ El formulario de reseñas permite al usuario registrar su opinión sobre un libr
 - **HTML**: Para la estructura de la página.
 - **CSS**: Para darle estilo a la página.
 
+
+
+## 🖥️ Capturas
+
+  ![Captura de Pantalla 1](./screenshots/1.png)
+  ![Captura de Pantalla 2](./screenshots/2.png)
+  ![Captura de Pantalla 3](./screenshots/3.png)
+  ![Captura de Pantalla 4](./screenshots/4.png)
+
 ## 🔗 Enlace de la Página (opcional)
 
 Si la página está desplegada, puedes agregar un enlace aquí:
