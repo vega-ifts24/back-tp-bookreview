@@ -1,6 +1,8 @@
 # Proyecto de Gestión de Libros
 
-Este proyecto es una API para la gestión de libros, construida con Node.js, Express y MySQL. Permite realizar operaciones CRUD (Crear, Leer, Actualizar y Eliminar) en una base de datos de libros.
+Este proyecto es una API para la gestión de libros y reseñas, construida con Node.js, Express y MySQL. Permite realizar operaciones CRUD (Crear, Leer, Actualizar y Eliminar) en una base de datos de libros.
+
+Actualmente solo está hecho gestión de libros. 
 
 ## Requisitos
 
@@ -56,8 +58,7 @@ Antes de comenzar, asegúrate de tener instalados los siguientes programas en tu
 
    export const connection = await mysql.createConnection({
      host: 'localhost',
-     user: 'tu_usuario',
-     password: 'tu_contraseña',
+     user: 'root',
      database: 'book-review'
    });
    ```
@@ -93,11 +94,3 @@ Puedes usar [Postman](https://www.postman.com/) para interactuar con la API. Imp
 - **POST `/api/books`**: Crear un nuevo libro.
 - **PUT `/api/books/:id`**: Actualizar un libro existente.
 - **DELETE `/api/books/:id`**: Eliminar un libro.
-
-## Contribuciones
-
-Si deseas contribuir a este proyecto, siéntete libre de hacer un fork y enviar un pull request.
-
-## Licencia
-
-Este proyecto está bajo la Licencia MIT.
