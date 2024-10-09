@@ -11,11 +11,11 @@ Puedes usar [Postman](https://www.postman.com/) para interactuar con la API. Imp
 
 [Postman Collection - Books Admin](https://www.postman.com/nativegaifts24/ifts24-back/collection/kpgsybx/books-admin)
 
-  ![Captura de Pantalla 1](./screenshots/createBook.png)
-  ![Captura de Pantalla 2](./screenshots/getAllBooks.png)
-  ![Captura de Pantalla 3](./screenshots/getBookById.png)
-  ![Captura de Pantalla 4](./screenshots/updateBook.png)
-  ![Captura de Pantalla 5](./screenshots/deleteBook.png)
+  ![Captura de Pantalla 1](back/screenshots/createBook.png)
+  ![Captura de Pantalla 2](back/screenshots/getAllBooks.png)
+  ![Captura de Pantalla 3](back/screenshots/getBookById.png)
+  ![Captura de Pantalla 4](back/screenshots/updateBook.png)
+  ![Captura de Pantalla 5](back/screenshots/deleteBook.png)
 
 ### Endpoints Disponibles
 
@@ -35,7 +35,7 @@ Este proyecto es una página de recomendaciones y reseñas de libros, desarrolla
 
 ## 🖥️ Capturas
 
-  ![Captura de Pantalla 1](./screenshots/1.png)
-  ![Captura de Pantalla 2](./screenshots/2.png)
-  ![Captura de Pantalla 3](./screenshots/3.png)
-  ![Captura de Pantalla 4](./screenshots/4.png)
+  ![Captura de Pantalla 1](front/screenshots/1.png)
+  ![Captura de Pantalla 2](front/screenshots/2.png)
+  ![Captura de Pantalla 3](front/screenshots/3.png)
+  ![Captura de Pantalla 4](front/screenshots/4.png)
