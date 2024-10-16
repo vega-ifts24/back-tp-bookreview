@@ -1,8 +1,7 @@
-// back/controllers/booksController.js
 import { connection } from '../database/index.js'; // Importar la conexión a la base de datos.
 
 // Obtener todos los libros
-export const getAllBooks = async (req, res) => {
+export const getAllBooks = async (_, res) => {
     try {
         const [rows] = await connection.query('SELECT * FROM books');
         res.json(rows);
