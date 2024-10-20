@@ -4,10 +4,11 @@ import { connection } from '../database/index.js'; // Importar la conexión a la
 export const getAllBooks = async (_, res) => {
     try {
         const [rows] = await connection.query('SELECT * FROM books');
-        res.json(rows);
+        res.status(200).send({ error: false, body: rows, message: "Libros obtenidos con éxito." })
+
     } catch (error) {
         console.error(error);
-        res.status(500).send('Error al obtener los libros.');
+        res.status(error.status || 500).send({ error: true, body: null, message: error.message || error });
     }
 };
 
@@ -17,13 +18,14 @@ export const getBookById = async (req, res) => {
     try {
         const [rows] = await connection.query('SELECT * FROM books WHERE id = ?', [id]);
         if (rows.length === 0) {
-            res.status(404).send('Libro no encontrado.');
+            throw ({ status: 404, message: 'Libro no encontrado.'});
+
         } else {
-            res.json(rows[0]);
+            res.status(200).send({ error: false, body: rows, message: "Libro obtenido con exito" })
         }
     } catch (error) {
         console.error(error);
-        res.status(500).send('Error al obtener el libro.');
+        res.status(error.status || 500).send({ error: true, body: null, message: error.message || error });
     }
 };
 
@@ -38,7 +40,7 @@ export const createBook = async (req, res) => {
         res.status(201).json({ message: 'Libro creado exitosamente', id: result[0].insertId });
     } catch (error) {
         console.error(error);
-        res.status(500).send('Error al crear el libro.');
+        res.status(error.status || 500).send({ error: true, body: null, message: error.message || error });
     }
 };
 
@@ -52,13 +54,14 @@ export const updateBook = async (req, res) => {
             [title, coverLink, author, gender, id]
         );
         if (result.affectedRows === 0) {
-            res.status(404).send('Libro no encontrado.');
+            throw ({ status: 404, message: 'Libro no encontrado.'});
+
         } else {
-            res.json({ message: 'Libro actualizado exitosamente' });
+            res.status(200).send({ error: false, body: rows, message: 'Libro actualizado exitosamente' })
         }
     } catch (error) {
         console.error(error);
-        res.status(500).send('Error al actualizar el libro.');
+        res.status(error.status || 500).send({ error: true, body: null, message: error.message || error });
     }
 };
 
@@ -68,12 +71,12 @@ export const deleteBook = async (req, res) => {
     try {
         const [result] = await connection.query('DELETE FROM books WHERE id = ?', [id]);
         if (result.affectedRows === 0) {
-            res.status(404).send('Libro no encontrado.');
+            throw ({ status: 404, message: 'Libro no encontrado.'});
         } else {
-            res.json({ message: 'Libro eliminado exitosamente' });
+            res.status(200).send({ error: false, body: rows, message:  'Libro eliminado exitosamente' })
         }
     } catch (error) {
         console.error(error);
-        res.status(500).send('Error al eliminar el libro.');
+        res.status(error.status || 500).send({ error: true, body: null, message: error.message || error });
     }
 };

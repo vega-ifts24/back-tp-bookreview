@@ -5,10 +5,10 @@ import { connection } from '../database/index.js'; // Importar la conexión a la
 export const getAllReviews = async (_, res) => {
     try {
         const [rows] = await connection.query("SELECT * from reviews")
-        res.json(rows);
+        res.status(200).send({ error: false, body: rows, message: 'Reseñas obtenidas con éxito.' })
     } catch (error) {
         console.error(error);
-        res.status(500).send('Error al obtener las reseñas.');
+        res.status(error.status || 500).send({ error: true, body: null, message: error.message || error });
     }
 }
 
@@ -18,44 +18,49 @@ export const getReviewById = async (req, res) => {
         const { id } = req.params
         const [rows] = await connection.query('SELECT * FROM reviews WHERE id = ?', [id]);
         if (rows.length === 0) {
-            res.status(404).send('Reseña no encontrada.');
+            throw ({ status: 404, message: 'Reseña no encontrada.'});
         } else {
-            res.json(rows[0]);
+            res.status(200).send({ error: false, body: rows, message: 'Reseñas obtenida con éxito.' })
         }
     } catch (error) {
         console.error(error);
-        res.status(500).send('Error al obtener las reseñas.');
+        res.status(error.status || 500).send({ error: true, body: null, message: error.message || error });
     }
 }
 
 // Crear nueva review
 export const createReview = async (req, res) => {
     try {
-        const {bookId, userId, description, rating, startDate, endDate  } = req.body;
+        const { bookId, userId, description, rating, startDate, endDate } = req.body;
         const result = await connection.query(
             'INSERT INTO reviews (bookId, userId, description, rating, startDate, endDate) VALUES (?, ?, ?, ?, ?, ?)',
             [bookId, userId, description, rating, startDate, endDate]
         );
-        res.status(201).json({ message: 'Reseña creada exitosamente', id: result[0].insertId });
+        res.status(201).send({
+            error: false, body: {
+                id: result[0].insertId
+            }, message: 'Reseña creada exitosamente'
+        })
+
     } catch (error) {
         console.error(error);
-        res.status(500).send('Error al crear la reseña');
+        res.status(error.status || 500).send({ error: true, body: null, message: error.message || error });
     }
 }
 
 // Eliminar review
 export const deleteReviewById = async (req, res) => {
     try {
-        const {id} = req.params
-        const [result] = await connection.query("DELETE FROM reviews WHERE id = ?", [id]  )
+        const { id } = req.params
+        const [result] = await connection.query("DELETE FROM reviews WHERE id = ?", [id])
         if (result.affectedRows === 0) {
-            res.status(404).send('Reseña no encontrada.');
+            throw ({ status: 404, message: 'Reseña no encontrada.'});
         } else {
-            res.json({ message: 'Reseña eliminada exitosamente' });
+            res.status(200).send({ error: false, body: null, message: 'Reseña eliminada exitosamente'})
         }
     } catch (error) {
-        console.log(error)
-        res.status(500).send('Error al eliminar la reseña.');
+        console.error(error);
+        res.status(error.status || 500).send({ error: true, body: null, message: error.message || error });
     }
 }
 // Eliminar review
@@ -70,7 +75,7 @@ export const archiveReviewById = async (req, res) => {
         );
 
         if (result.affectedRows === 0) {
-            return res.status(404).send('Reseña no encontrada.');
+            throw ({ status: 404, message: 'Reseña no encontrada.'});
         }
 
         // Obtener el nuevo estado de 'archived' después de la actualización
@@ -82,33 +87,33 @@ export const archiveReviewById = async (req, res) => {
         const newStatus = updatedReview[0].archived ? 'archivada' : 'desarchivada';
 
         // Devolver el mensaje con el nuevo estado
-        res.json({ message: `La reseña ha sido ${newStatus} exitosamente.` });
+        res.status(200).send({ error: false, body: null, message: `La reseña ha sido ${newStatus} exitosamente.`})
 
     } catch (error) {
         console.error(error);
-        res.status(500).send('Error al cambiar el estado de archivo de la reseña.');
+        res.status(error.status || 500).send({ error: true, body: null, message: error.message || error });
     }
 }
 
 // Editar review
 export const updateReviewById = async (req, res) => {
     try {
-        const {id} = req.params
-        const { description, rating, startDate, endDate} = req.body
+        const { id } = req.params
+        const { description, rating, startDate, endDate } = req.body
         const [result] = await connection.query(
             'UPDATE reviews SET description = ?, rating = ?, startDate = ?, endDate = ? WHERE id = ?',
-             [description, rating, startDate, endDate, id]
+            [description, rating, startDate, endDate, id]
         )
 
         if (result.affectedRows === 0) {
-            res.status(404).send('Reseña no encontrado.');
+            throw ({ status: 404, message: 'Reseña no encontrada.'});
         } else {
-            res.json({ message: 'Reseña actualizada exitosamente' });
+            res.status(200).send({ error: false, body: null,message: 'Reseña actualizada exitosamente'})
         }
-        
-        
+
+
     } catch (error) {
-        console.log(error)
-        res.status(500).send('Error al actualizar la reseña.');
+        console.error(error);
+        res.status(error.status || 500).send({ error: true, body: null, message: error.message || error });
     }
 }
