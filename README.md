@@ -12,7 +12,7 @@ Puedes usar [Postman](https://www.postman.com/) para interactuar con la API. Imp
 [Postman Collection - Books Admin](https://www.postman.com/nativegaifts24/ifts24-back/collection/kpgsybx/books-admin)
 
 Ejemplo: Más en el readme de back
-![Get All Books](./screenshots/books/getAllBooks.png)
+![Get All Books](back/screenshots/books/getAllBooks.png)
 
 ### Endpoints Disponibles
 
@@ -31,8 +31,5 @@ https://bookreview-ifts24.vercel.app/
 Este proyecto es una página de recomendaciones y reseñas de libros, desarrollada con JavaScript Vanilla, HTML y CSS. Los usuarios pueden iniciar sesión, leer reseñas de libros y dejar sus propias reseñas. El objetivo de la aplicación es compartir opiniones y calificaciones sobre libros de una manera intuitiva y visualmente atractiva.
 
 ## 🖥️ Capturas
-
+Ejemplo: Más en el readme de back
   ![Captura de Pantalla 1](front/screenshots/1.png)
-  ![Captura de Pantalla 2](front/screenshots/2.png)
-  ![Captura de Pantalla 3](front/screenshots/3.png)
-  ![Captura de Pantalla 4](front/screenshots/4.png)
