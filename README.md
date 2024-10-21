@@ -11,11 +11,8 @@ Puedes usar [Postman](https://www.postman.com/) para interactuar con la API. Imp
 
 [Postman Collection - Books Admin](https://www.postman.com/nativegaifts24/ifts24-back/collection/kpgsybx/books-admin)
 
-  ![Captura de Pantalla 1](back/screenshots/createBook.png)
-  ![Captura de Pantalla 2](back/screenshots/getAllBooks.png)
-  ![Captura de Pantalla 3](back/screenshots/getBookById.png)
-  ![Captura de Pantalla 4](back/screenshots/updateBook.png)
-  ![Captura de Pantalla 5](back/screenshots/deleteBook.png)
+Ejemplo: Más en el readme de back
+![Get All Books](./screenshots/books/getAllBooks.png)
 
 ### Endpoints Disponibles
 
