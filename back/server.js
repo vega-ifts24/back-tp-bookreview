@@ -13,13 +13,15 @@ const router = express.Router();
 
 // Usar el enrutador raíz para todas las rutas de la API.
 app.use('/api', rootRouter);
-
 app.get("/", async (_, res) => {
   res.send(`
     <html>
       <head>
         <title>📚 Bookreview Back-end</title>
         <style>
+          *{
+          margin:0;
+          }
           body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f9;
@@ -41,23 +43,101 @@ app.get("/", async (_, res) => {
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
+            text-align: left;
+          }
+          ul {
+            width: fit-content;
+          }
+          li {
+            text-align: start;
+
           }
         </style>
       </head>
       <body>
         <div class="container">
           <h1>📚 Bookreview Back-end</h1>
-          <p>Welcome to the back-end of the Bookreview application! This is the API for managing book reviews.</p>
-          <p>Check out the following links:</p>
+          <h2>Bienvenido a la API de la web <a href="https://bookreview-ifts24.vercel.app/" target="_blank">https://bookreview-ifts24.vercel.app/</a></h2>
+          <h3>Visualiza las rutas:</h3>
+          </br>
           <ul>
-            <li><a href="/api/books">View all books</a></li>
-            <li><a href="/api/reviews">View all reviews</a></li>
+            <li>
+              <h3><a href="/api/books">Books</a> - Obtén información de libros.</h3>
+              <br/><h4>Métodos disponibles:</h4>
+              <ul>
+                <li>GET: Obtiene todos los libros o uno por ID.</li>
+                <li>POST: Crea un nuevo libro.</li>
+                <li>PUT: Actualiza un libro por ID.</li>
+                <li>DELETE: Elimina un libro por ID.</li>
+              </ul>
+              <br/><h4>Contenido adicional:</h4>
+              <ul>
+                <li>Headers: Autenticación (opcional, según el endpoint).</li>
+                <li>Body para POST/PUT: { title, coverLink, author, gender }.</li>
+              </ul>
+            </li>
+            <br/>
+            <br/>
+            <li>
+              <h3><a href="/api/reviews">Reviews</a> - Gestiona reseñas de libros.</h3>
+              <br/><h4>Métodos disponibles:</h4>
+              <ul>
+                <li>GET: Obtiene todas las reseñas o una por ID.</li>
+                <li>POST: Crea una nueva reseña.</li>
+                <li>PUT: Actualiza una reseña por ID.</li>
+                <li>DELETE: Elimina o archiva una reseña por ID.</li>
+              </ul>
+              <br/><h4>Contenido adicional:</h4>
+              <ul>
+                <li>Headers: Autenticación requerida para crear, actualizar y eliminar reseñas.</li>
+                <li>Body para POST/PUT: { bookId, userId, description, rating, startDate, endDate }.</li>
+              </ul>
+            </li>
+            <br/>
+            <br/>
+            <li>
+              <h3><a href="/api/users">Users</a> - Administración de usuarios.</h3>
+              <br/><h4>Métodos disponibles:</h4>
+              <ul>
+                <li>GET: Obtiene todos los usuarios o detalles del usuario autenticado.</li>
+                <li>PUT: Actualiza detalles del usuario.</li>
+                <li>DELETE: Elimina el usuario autenticado.</li>
+              </ul>
+              <br/><h4>Contenido adicional:</h4>
+              <ul>
+                <li>Headers: Autenticación requerida para todos los endpoints.</li>
+                <li>Body para PUT: { first_name, surname, email, password, birth_date } (según el campo a actualizar).</li>
+              </ul>
+            </li>
+            <br/>
+            <br/>
+            <li>
+              <h3><a href="/api/auth/register">Auth</a> - Registro e inicio de sesión.</h3>
+              <br/><h4>Métodos disponibles:</h4>
+              <ul>
+                <li>POST /register: Registra un nuevo usuario.</li>
+                <li>POST /login: Inicia sesión.</li>
+              </ul>
+              <br/><h4>Contenido adicional:</h4>
+              <ul>
+                <li>Headers: No se requiere autenticación.</li>
+                <li>Body para /register: { first_name, surname, email, password, birth_date }.</li>
+                <li>Body para /login: { email, password }.</li>
+              </ul>
+            </li>
           </ul>
+
+          </br>
+          </br>
+          <h3>Colección de postman:</h3>
+          <p>Utiliza la colección de postman para interactuar con la api</p>
+          <a href="https://www.postman.com/nativegaifts24/ifts24-back/collection/kpgsybx/books-review-api">Book-Review-api collection</a>
         </div>
       </body>
     </html>
   `);
 });
+
 
 app.listen(port, () => {
   console.log(`✅ Server running on http://localhost:${port}/`);

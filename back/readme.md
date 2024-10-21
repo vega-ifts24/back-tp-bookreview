@@ -81,23 +81,70 @@ Antes de comenzar, asegúrate de tener instalados los siguientes programas en tu
 
    El servidor se ejecutará en `http://localhost:3000`.
 
+
+## Endpoints
+
+### Auth
+| Método | Endpoint          | Descripción                   |
+|--------|-------------------|-------------------------------|
+| POST   | `/api/users/register` | Registrar un nuevo usuario.     |
+| POST   | `/api/users/login`    | Iniciar sesión de un usuario.   |
+
+### Users
+| Método | Endpoint           | Descripción                                            |
+|--------|--------------------|--------------------------------------------------------|
+| GET    | `/api/users`        | Obtener todos los usuarios.                            |
+| GET    | `/api/users/details`| Obtener los detalles del usuario autenticado.          |
+| PUT    | `/api/users/details`| Actualizar los detalles del usuario autenticado.       |
+| DELETE | `/api/users/details`| Eliminar el usuario autenticado.                       |
+
+### Books
+| Método | Endpoint          | Descripción                        |
+|--------|-------------------|------------------------------------|
+| GET    | `/api/books`       | Obtener todos los libros.          |
+| GET    | `/api/books/:id`   | Obtener un libro por ID.           |
+| POST   | `/api/books`       | Crear un nuevo libro.              |
+| PUT    | `/api/books/:id`   | Actualizar un libro existente.     |
+| DELETE | `/api/books/:id`   | Eliminar un libro.                 |
+
+### Reviews
+| Método | Endpoint                 | Descripción                                |
+|--------|--------------------------|--------------------------------------------|
+| GET    | `/api/reviews`            | Obtener todas las reseñas.                 |
+| GET    | `/api/reviews/:id`        | Obtener una reseña por ID.                 |
+| POST   | `/api/reviews`            | Crear una nueva reseña.                    |
+| PUT    | `/api/reviews/:id`        | Actualizar una reseña existente.           |
+| DELETE | `/api/reviews/:id`        | Eliminar una reseña por ID.                |
+| DELETE | `/api/reviews/archive/:id`| Archivar una reseña por ID.                |
+
+
 ## Uso de Postman
 
 Puedes usar [Postman](https://www.postman.com/) para interactuar con la API. Importa la colección de Postman que contiene las solicitudes para gestionar los libros:
 
 [Postman Collection - Books Admin](https://www.postman.com/nativegaifts24/ifts24-back/collection/kpgsybx/books-admin)
 
-  ![Captura de Pantalla 1](./screenshots/createBook.png)
-  ![Captura de Pantalla 2](./screenshots/getAllBooks.png)
-  ![Captura de Pantalla 3](./screenshots/getBookById.png)
-  ![Captura de Pantalla 4](./screenshots/updateBook.png)
-  ![Captura de Pantalla 5](./screenshots/deleteBook.png)
+## Capturas de Pantalla
 
+### Books
+![Create Book](./screenshots/books/createBook.png)
+![Get All Books](./screenshots/books/getAllBooks.png)
+![Get Book By Id](./screenshots/books/getBookById.png)
+![Update Book](./screenshots/books/updateBook.png)
+![Delete Book](./screenshots/books/deleteBook.png)
 
-### Endpoints Disponibles
+### Reviews
+![Archive Review](./screenshots/reviews/archiveReviewById.png)
+![Create Review](./screenshots/reviews/createReview.png)
+![Delete Review](./screenshots/reviews/deleteReview.png)
+![Get All Reviews](./screenshots/reviews/getAllReviews.png)
+![Get Review By Id](./screenshots/reviews/getReviewId.png)
+![Update Review](./screenshots/reviews/updateReview.png)
 
-- **GET `/api/books`**: Obtener todos los libros.
-- **GET `/api/books/:id`**: Obtener un libro por ID.
-- **POST `/api/books`**: Crear un nuevo libro.
-- **PUT `/api/books/:id`**: Actualizar un libro existente.
-- **DELETE `/api/books/:id`**: Eliminar un libro.
+### Users
+![Delete User](./screenshots/users/deleteUser.png)
+![Get All Users](./screenshots/users/getAllUsers.png)
+![Get User By Token](./screenshots/users/getUserByToken.png)
+![Login](./screenshots/users/login.png)
+![Register](./screenshots/users/register.png)
+![Update User](./screenshots/users/updateUser.png)
