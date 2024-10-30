@@ -1,0 +1,400 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
+/* font-family: 'Montserrat', sans-serif; */
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+
+  scroll-behavior: smooth !important;
+  scroll-padding-top: 35%;
+}
+
+:root {
+  /* BACKGROUND */
+  --background-main: white;
+  --background-navbar: #f5ebe0;
+
+  /* TIPOGRAFIA COLOR */
+  --title-color: #cba58f;
+  --body-color: #44413b;
+
+  /* PALLETE */
+  --primary: #d5bdaf;
+  --secondary: #e3d5ca;
+  --tertiary: #f5ebe0;
+  --quaternary: #d6ccc2;
+}
+
+/* MOBILE FIRST */
+
+
+body {
+  padding-top: 64px;
+  background-color: var(--background-main);
+  color: var(--body-color);
+  font-family: "Montserrat", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+
+  gap: 24px;
+
+}
+
+/*HEADER*/
+.headerContainer {
+  /* width: 100%; */
+  position: fixed;
+  z-index: 10000;
+  top: 0;
+  left: 0;
+  position: fixed;
+  padding: 16px;
+}
+
+/*NAV*/
+.navbarContainer {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background-navbar);
+  backdrop-filter: blur(2px);
+  border-radius: 50px;
+}
+
+/* SPAN BARRAS MENÚ HAMBURGUESA ESTILADO Y ANIMACIÓN*/
+
+.bars-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  height: 20px;
+  width: 25px;
+
+  gap: 3px;
+  position: relative;
+  transition: all 0.4s linear;
+
+  cursor: pointer;
+
+  margin: 0 !important;
+}
+
+.bars-container span {
+  width: 100%;
+  height: 3px;
+  border-radius: 4px;
+  background-color: var(--body-color);
+}
+
+.bars-container span:first-child {
+  transition: all 0.4s linear;
+}
+
+.bars-container span:last-child {
+  transition: all 0.4s linear;
+}
+
+/* CONTENEDOR DE BOTONES DE NAVEGACIÓN */
+
+.optionsNavContainer {
+  padding: 24px 16px;
+  margin: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  visibility: visible;
+  height: calc(100vh - 104px);
+  width: 70vw;
+
+  background-color: var(--background-navbar);
+  border-radius: 16px;
+
+  position: fixed;
+
+  top: 70px;
+  left: -100vh;
+
+  /* opacity: 0; */
+  pointer-events: none;
+  transition: all 0.5s ease;
+
+  z-index: 10;
+}
+
+.optionsNavContainer div {
+  display: flex;
+  flex-direction: column;
+}
+
+.optionsNavContainer div li {
+  list-style: none;
+  height: 100%;
+}
+
+.optionsNavContainer div li a {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  min-height: 42px;
+  background-color: transparent;
+  padding: 0 16px;
+  color: var(--body-color);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  border-radius: 50px;
+  font-size: clamp(10px, 0.7vw, 12px);
+  text-transform: uppercase;
+  text-wrap: nowrap;
+}
+
+.optionsNavContainer div li:hover > a,
+.optionsNavContainer div li:active > a {
+  background-color: var(--button-hover-color);
+  transition: all 0.3s;
+}
+
+/* FUNCION TOGGLE */
+.menu-toggle:checked ~ .toggle {
+  top: 70px;
+  left: 0;
+  opacity: 1;
+  pointer-events: all;
+  color: var(--body-color);
+}
+
+#menu-toggle:checked + .bars-container > span:first-child {
+  position: absolute;
+  margin-top: 8px;
+  transform: rotate(135deg);
+  transition: all 0.4s linear;
+}
+
+#menu-toggle:checked + .bars-container > span:nth-child(2) {
+  opacity: 0;
+}
+
+#menu-toggle:checked + .bars-container > span:last-child {
+  margin-bottom: 8px;
+  transform: rotate(-135deg);
+  transition: all 0.4s linear;
+}
+
+#menu-toggle {
+  display: none;
+}
+
+/* MAIN */
+
+main {
+  width: 100%;
+  padding-top: 24px;
+  min-height: 100vh;
+  display: flex !important;
+  flex-direction: column;
+  gap: 24px;
+  padding: 0 32px;
+
+}
+
+.sectionContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: center;
+}
+
+.titleH1,
+.titleH2 {
+  margin: 0;
+  width: 100%;
+  font-size: clamp(24px, 4vw, 32px);
+  color: var(--title-color);
+  text-align: center;
+}
+
+/* FOOTER */
+
+footer {
+  width: 100%;
+  padding: 16px;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  background-color: var(--background-navbar);
+  border-radius: 16px;
+}
+
+.redesContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+.redesContainer a {
+  list-style: none;
+  text-decoration: none;
+  color: var(--body-color);
+  width: 16px;
+  height: 16px;
+
+  cursor: pointer;
+}
+
+.copyContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.removeStylesBtn {
+  background-color: transparent;
+  border: none;
+  width: 100%;
+  height: 100%;
+  color: white;
+}
+
+.removeStylesBtn:focus-visible,
+.removeStylesBtn:focus {
+  border: transparent !important;
+}
+
+/* BOTONES */
+.textBtn {
+  background: none;
+  border: none;
+  outline: none;
+  font-family: "Montserrat", sans-serif;
+  text-transform: uppercase;
+  font-size: clamp(12px, 0.7vw, 14px);
+  color: var(--title-color);
+}
+.filledBtn {
+  background: var(--primary);
+  padding: 8px 16px;
+  border-radius: 24px;
+  color: white;
+  border: none;
+  outline: none;
+  font-family: "Montserrat", sans-serif;
+  text-transform: uppercase;
+  font-size: clamp(12px, 0.7vw, 14px);
+  font-weight: 500;
+}
+
+/* BANNER */
+.banner {
+  width: 100%;
+  border-radius: 16px;
+  max-height: 70vh;
+  object-fit: cover;
+  object-position: top;
+}
+
+.book-container {
+  width: 100%;
+  display: flex;
+  gap: 12px;
+  overflow: scroll;
+  padding-bottom: 16px;
+}
+
+.book {
+  border: none;
+}
+
+.book-cover {
+  width: 140px;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+/* TABLET */
+
+@media (min-width: 572px) {
+}
+
+/* DESKTOP */
+
+@media (min-width: 864px) {
+  /* * NAV BAR*/
+  main {
+    padding-top: calc(88px + 16px);
+  }
+  body {
+    padding: 0;
+  }
+
+  .headerContainer {
+    width: 100%;
+  }
+
+  .navbarContainer {
+    width: 100%;
+    overflow: hidden;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .optionsNavContainer {
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    position: static;
+    transition: none;
+    box-shadow: none;
+    opacity: 1;
+    pointer-events: all;
+  }
+  .optionsNavContainer div {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .optionsNavContainer div li a {
+    height: 100%;
+    flex-direction: row;
+    position: static;
+    transition: none;
+    box-shadow: none;
+    opacity: 1;
+    pointer-events: all;
+    gap: 16px;
+  }
+
+  /* BARS */
+  .menu-toggle {
+    display: none;
+  }
+
+  .menu-toggle,
+  .bars-container {
+    display: none;
+  }
+}
+
+/* LARGE DESKTOP */
+
+@media (min-width: 1024px) {
+}
+
+/* EXTRA LARGE DESKTOP */
+
+@media (min-width: 1440px) {
+}

@@ -1,18 +1,20 @@
 // back/server.js
-import express from 'express';
-import rootRouter from './routes/index.js'; // Importar el enrutador raíz.
-import dotenv from 'dotenv'
+import express from "express";
+import rootRouter from "./routes/index.js"; // Importar el enrutador raíz.
+import dotenv from "dotenv";
+import cors from "cors";
 
 dotenv.config();
 const app = express();
 const port = process.env.PORT || 3001;
 
 app.use(express.json()); // Para analizar solicitudes JSON.
+app.use(cors()); // Para permitir solicitudes de origen cruzado.
+
 const router = express.Router();
 
-
 // Usar el enrutador raíz para todas las rutas de la API.
-app.use('/api', rootRouter);
+app.use("/api", rootRouter);
 app.get("/", async (_, res) => {
   res.send(`
     <html>
@@ -138,10 +140,8 @@ app.get("/", async (_, res) => {
   `);
 });
 
-
 app.listen(port, () => {
   console.log(`✅ Server running on http://localhost:${port}/`);
 });
 
 export default router;
-

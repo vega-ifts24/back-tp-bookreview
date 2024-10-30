@@ -22,8 +22,13 @@ CREATE TABLE `reviews` (
   `startDate` date DEFAULT NULL,
   `endDate` date DEFAULT NULL,
   `archived` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Base de datos de reseñas para visualizar en el front de la web. A su vez, la posibilidad de crear, editar y eliminar reseñas. Se asocia a un libro y un usuario';
+  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `reviews_users_FK` (`userId`),
+  CONSTRAINT `reviews_users_FK` FOREIGN KEY (`userId`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Base de datos de reseñas para visualizar en el front de la web. A su vez, la posibilidad de crear, editar y eliminar reseñas. Se asocia a un libro y un usuario';
+
 
 -- USERS
 -- `book-review`.users definition
