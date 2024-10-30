@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+
+  scroll-behavior: smooth !important;
+  scroll-padding-top: 35%;
+}
+
+:root {
+  /* BACKGROUND */
+  --background: #f9f9f9;
+  --background-navbar: #f5ebe0;
+
+  /* TIPOGRAFIA COLOR */
+  --title-color: #cba58f;
+  --body-color: #44413b;
+
+  /* PALLETE */
+  --primary: #d5bdaf;
+  --secondary: #e3d5ca;
+  --tertiary: #f5ebe0;
+  --quaternary: #d6ccc2;
+}
+
+/* @media (prefers-color-scheme: dark) { */

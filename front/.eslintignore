@@ -1,0 +1,26 @@
+# Ignorar directorios de dependencias
+node_modules/
+bower_components/
+
+# Ignorar directorios generados por herramientas de construcción
+/build
+/dist
+/coverage
+
+# Ignorar archivos de configuración
+.eslintrc.js
+.eslintignore
+globals.css
+
+# Ignorar directorios específicos del proyecto
+.expo/
+.expo-shared/
+
+# Ignorar archivos generados por IDEs
+.vscode/
+
+# Ignorar archivos específicos
+*.min.js
+*.d.ts
+
+globals.css

@@ -1,79 +1,36 @@
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-# 📚 Book Reviews Website
-https://bookreview-ifts24.vercel.app/
+## Getting Started
 
-Este proyecto es una página de recomendaciones y reseñas de libros, desarrollada con JavaScript Vanilla, HTML y CSS. Los usuarios pueden iniciar sesión, leer reseñas de libros y dejar sus propias reseñas. El objetivo de la aplicación es compartir opiniones y calificaciones sobre libros de una manera intuitiva y visualmente atractiva.
+First, run the development server:
 
-## 🚀 Características
-
-- **Inicio de sesión**: El usuario puede iniciar sesión con las siguientes credenciales:
-  - **Email**: natalia@gmail.com
-  - **Contraseña**: 123456
-
-- **Formulario de reseñas**: Los usuarios pueden dejar una reseña para un libro con las siguientes opciones:
-  - **Título del libro**: Campo de texto para ingresar el nombre del libro.
-  - **Autor del libro**: Campo de texto para ingresar el nombre del autor.
-  - **Comentario**: Campo de texto donde el usuario escribe su opinión sobre el libro.
-  - **Calificación**: Sistema de calificación con estrellas (de 1 a 5), donde el usuario selecciona el número de estrellas que representa su valoración general del libro.
-
-- **Reseñas visibles**: Todas las reseñas se muestran en la página de manera organizada, permitiendo a los usuarios leer las opiniones de otros usuarios.
-
-- **Funciones JavaScript**:
-  - **Inicio de sesión**: Valida que el correo y la contraseña sean correctos. Si el inicio de sesión es exitoso, guarda los datos en el `localStorage` y permite al usuario acceder a la sección de reseñas.
-  - **Deslogueo**: Función que borra todo el `localStorage` y cierra la sesión del usuario.
-  - **Creación de reseñas**: Añade la reseña a la lista de reseñas visibles y permite interactuar con la calificación en estrellas.
-  - **Validación de formulario**: Se valida que todos los campos obligatorios estén llenos antes de enviar la reseña.
-  - **Sistema de calificación con estrellas**: Permite seleccionar la calificación del libro, y se muestra visualmente a través de un sistema de estrellas. La cantidad de estrellas seleccionadas representa la calificación (por ejemplo, seleccionar la estrella 5 indica una calificación de 5/5).
-
-## 📝 Estructura del Proyecto
-
-La estructura básica del proyecto es la siguiente:
-
-```
-├── index.html       # Página principal con el formulario de reseñas y la visualización de reseñas existentes.
-├── styles.css       # Archivo de estilos CSS para darle formato y diseño a la aplicación.
-├── script.js        # Archivo JavaScript que contiene toda la lógica de la aplicación (login, logout, reseñas, etc.).
-└── README.md        # Descripción del proyecto.
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-## 🗝️ Instrucciones para iniciar sesión
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-Para acceder a las funcionalidades de la página, sigue los siguientes pasos:
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-1. **Inicia sesión** con el siguiente correo y contraseña:
-   - **Email**: natalia@gmail.com
-   - **Contraseña**: 123456
-2. Una vez que hayas iniciado sesión, podrás acceder al formulario para agregar reseñas de libros y leer las reseñas de otros usuarios.
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## 📋 Funcionalidades del Formulario de Reseñas
+## Learn More
 
-El formulario de reseñas permite al usuario registrar su opinión sobre un libro de la siguiente manera:
+To learn more about Next.js, take a look at the following resources:
 
-1. **Título del libro**: Campo obligatorio para ingresar el nombre del libro.
-2. **Autor del libro**: Campo obligatorio para ingresar el nombre del autor.
-3. **Comentario**: Campo para que el usuario escriba sus opiniones sobre el libro.
-4. **Sistema de calificación con estrellas**:
-   - El sistema de calificación permite seleccionar de 1 a 5 estrellas.
-   - La calificación seleccionada se guarda como un número en el sistema, reflejando el puntaje total de la reseña.
-5. **Botón de enviar reseña**:
-   - Al hacer clic en este botón, la reseña se guarda y se muestra automáticamente en la lista de reseñas de la página.
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-## 🖥️ Tecnologías Utilizadas
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-- **JavaScript Vanilla**: Para manejar la lógica de la aplicación.
-- **HTML**: Para la estructura de la página.
-- **CSS**: Para darle estilo a la página.
+## Deploy on Vercel
 
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-
-## 🖥️ Capturas
-
-  ![Captura de Pantalla 1](./screenshots/1.png)
-  ![Captura de Pantalla 2](./screenshots/2.png)
-  ![Captura de Pantalla 3](./screenshots/3.png)
-  ![Captura de Pantalla 4](./screenshots/4.png)
-
-## 🔗 Enlace de la Página (opcional)
-
-Si la página está desplegada, puedes agregar un enlace aquí:
-https://bookreview-ifts24.vercel.app/
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
