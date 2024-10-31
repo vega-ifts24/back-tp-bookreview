@@ -31,7 +31,7 @@ const StyledButton = ({
       case 'outlined':
         return 'border border-primary text-bodyColor hover:bg-primary hover:text-white'
       default:
-        return 'bg-transparent text-titleColor hover:underline hover:underline-offset-4    '
+        return 'bg-transparent text-titleColor hover:underline hover:underline-offset-4 hover:bg-gray-100    '
     }
   }
 

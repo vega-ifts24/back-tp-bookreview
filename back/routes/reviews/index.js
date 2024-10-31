@@ -13,7 +13,7 @@ import { authMiddleWare } from "../../middleware/authMiddleware.js";
 const router = express.Router();
 
 router.get("/", getAllReviews);
-router.post("/", createReview);
+router.post("/", authMiddleWare, createReview);
 router.get("/:id", getReviewById);
 router.delete("/:id", deleteReviewById);
 router.put("/:id", updateReviewById);

@@ -4,7 +4,7 @@ import {FC, useState} from 'react'
 
 import {ButtonNav} from './ButtonNav'
 
-import {NavBarSections} from '@/utils/constants'
+import {NavBarSections} from '@/utils/constants/constants'
 import {useAuthStore} from '@/store/useAuthStore'
 
 const Header: FC = () => {

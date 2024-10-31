@@ -1,3 +1,4 @@
+import chalk from "chalk";
 import { connection } from "../database/index.js"; // Importar la conexión a la base de datos.
 
 // Obtener todas las review
@@ -10,7 +11,7 @@ export const getAllReviews = async (_, res) => {
       message: "Reseñas obtenidas con éxito.",
     });
   } catch (error) {
-    console.error(error);
+    console.error(chalk.red("❌ Error al obtener reseñas: "), error);
     res
       .status(error.status || 500)
       .send({ error: true, body: null, message: error.message || error });
@@ -35,7 +36,7 @@ export const getReviewById = async (req, res) => {
       });
     }
   } catch (error) {
-    console.error(error);
+    console.error(chalk.red("❌ Error al obtener reseña por ID: "), error);
     res
       .status(error.status || 500)
       .send({ error: true, body: null, message: error.message || error });
@@ -45,9 +46,10 @@ export const getReviewById = async (req, res) => {
 export const getReviewsByToken = async (req, res) => {
   try {
     const id = req.userId;
-    console.log(id);
+
+    // Consigo la review con el libro segun la columna bookId de la tabla reviews
     const [rows] = await connection.query(
-      "SELECT * FROM reviews WHERE userId = ?",
+      "SELECT * FROM reviews LEFT JOIN books ON bookId = books.id WHERE userId =  ?",
       [id]
     );
 
@@ -59,7 +61,7 @@ export const getReviewsByToken = async (req, res) => {
         : "Aún no hay reseñas.",
     });
   } catch (error) {
-    console.error(error);
+    console.error(chalk.red("❌ Error al obtener reseñas por token: "), error);
     res
       .status(error.status || 500)
       .send({ error: true, body: null, message: error.message || error });
@@ -69,8 +71,8 @@ export const getReviewsByToken = async (req, res) => {
 // Crear nueva review
 export const createReview = async (req, res) => {
   try {
-    const { bookId, userId, description, rating, startDate, endDate } =
-      req.body;
+    const userId = req.userId;
+    const { bookId, description, rating, startDate, endDate } = req.body;
     const result = await connection.query(
       "INSERT INTO reviews (bookId, userId, description, rating, startDate, endDate) VALUES (?, ?, ?, ?, ?, ?)",
       [bookId, userId, description, rating, startDate, endDate]
@@ -85,7 +87,7 @@ export const createReview = async (req, res) => {
       message: "Reseña creada exitosamente",
     });
   } catch (error) {
-    console.error(error);
+    console.error(chalk.red("❌ Error al crear reseña: "), error);
     res
       .status(error.status || 500)
       .send({ error: true, body: null, message: error.message || error });
@@ -110,7 +112,7 @@ export const deleteReviewById = async (req, res) => {
       });
     }
   } catch (error) {
-    console.error(error);
+    console.error(chalk.red("❌ Error al eliminar reseña por ID: "), error);
     res
       .status(error.status || 500)
       .send({ error: true, body: null, message: error.message || error });
@@ -146,7 +148,7 @@ export const archiveReviewById = async (req, res) => {
       message: `La reseña ha sido ${newStatus} exitosamente.`,
     });
   } catch (error) {
-    console.error(error);
+    console.error(chalk.red("❌ Error al archivar reseña por ID: "), error);
     res
       .status(error.status || 500)
       .send({ error: true, body: null, message: error.message || error });
@@ -173,7 +175,7 @@ export const updateReviewById = async (req, res) => {
       });
     }
   } catch (error) {
-    console.error(error);
+    console.error(chalk.red("❌ Error al actualizar reseña por ID: "), error);
     res
       .status(error.status || 500)
       .send({ error: true, body: null, message: error.message || error });

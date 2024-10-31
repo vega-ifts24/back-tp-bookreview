@@ -4,11 +4,12 @@ import {toast} from 'sonner'
 
 import {JSONResponse} from '@/types/JSONResponse'
 import {ReviewI} from '@/types/reviews'
+import {BookI} from '@/types/books'
 
 export interface ReviewsI {
-  getReviewsByUser: ({token}: {token: string}) => Promise<JSONResponse<ReviewI[]>>
+  getAllBooks: ({busqueda}: {busqueda: string}) => Promise<JSONResponse<BookI[]>>
   reviews: ReviewI[]
-  loadingReviews: boolean
+  loadingBooks: boolean
 }
 
 export const useBookStore = create<ReviewsI>()(
@@ -16,40 +17,44 @@ export const useBookStore = create<ReviewsI>()(
     persist<ReviewsI>(
       (set) => ({
         reviews: [],
-        loadingReviews: false,
-        getReviewsByUser: async ({token}: {token: string}): Promise<JSONResponse<ReviewI[]>> => {
-          console.log('getReviewsByUser => token: ', token) // eslint-disable-line
+        loadingBooks: false,
+
+        getAllBooks: async ({busqueda}: {busqueda: string}): Promise<JSONResponse<BookI[]>> => {
           try {
-            set({loadingReviews: true})
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/reviews/user/list`, {
+            set({loadingBooks: true})
+            let url = `${process.env.NEXT_PUBLIC_API_URL}/books`
+
+            if (busqueda) {
+              url = `${url}?search=${busqueda}`
+            }
+            const response = await fetch(url, {
               method: 'GET',
               headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`,
               },
             })
 
             const data = await response.json()
 
             if (data.error) {
-              set({loadingReviews: false, reviews: []})
+              set({loadingBooks: false, reviews: []})
 
-              toast.error(data.message || 'Error al obtener las reseñas')
+              toast.error(data.message || 'Error al obtener los libros')
 
               return data
             }
 
-            set({reviews: data?.body as ReviewI[], loadingReviews: false})
+            set({loadingBooks: false})
 
             return data
           } catch (error) {
-            console.error('getReviews => Error al obtener las reseñas: ', error) // eslint-disable-line
-            toast.error('Error al obtener las reseñas')
+            console.error('getAllBooks => Error al obtener los libros: ', error) // eslint-disable-line
+            toast.error('Error al obtener los libros')
 
             return {
               error: true,
               status: 500,
-              message: 'Error al obtener las reseñas',
+              message: 'Error al obtener los libros',
               body: null,
             }
           }

@@ -3,6 +3,7 @@ import express from "express";
 import rootRouter from "./routes/index.js"; // Importar el enrutador raíz.
 import dotenv from "dotenv";
 import cors from "cors";
+import chalk from "chalk";
 
 dotenv.config();
 const app = express();
@@ -141,7 +142,13 @@ app.get("/", async (_, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`✅ Server running on http://localhost:${port}/`);
+  console.log(
+    chalk.green.inverse.bold(
+      " -------------------------------------------- \n" +
+        `  Servidor iniciado en http://localhost:${port}  ` +
+        "\n -------------------------------------------- "
+    )
+  );
 });
 
 export default router;

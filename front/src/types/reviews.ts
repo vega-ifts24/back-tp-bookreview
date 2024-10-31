@@ -1,3 +1,5 @@
+import {BookI} from './books'
+
 export interface ReviewI {
   id: number
   userId: number
@@ -7,4 +9,12 @@ export interface ReviewI {
   startDate: Date
   endDate: Date
   archived: boolean
+}
+
+export interface ReviewFormI {
+  rating: number
+  comment: string
+  startDate: Date | null
+  endDate: Date | null
+  bookSelected: BookI
 }

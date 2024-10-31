@@ -1,56 +1,59 @@
 'use client'
 
-import {ReviewI} from '@/types/reviews'
+import {BookmarkSimple, PencilSimple, Trash} from '@phosphor-icons/react'
 
-interface BookData {
-  imageSrc: string
-  title: string
-}
+import StyledButton from '../buttons/StyledButton'
+
+import Rating from '@/pages/reviews/Rating'
+import {BookI} from '@/types/books'
+import {ReviewI} from '@/types/reviews'
+import {formatDate} from '@/utils/constants/formatDate'
+import {useReviewsStore} from '@/store/useReviewsStore'
 
 interface CardReviewProps {
-  bookData: BookData
-  review: ReviewI
-  archiveBook: (reviewId: number) => void
-  editReview: (reviewId: number) => void
-  deleteReview: (reviewId: number) => void
+  review: ReviewI & BookI // review + book
 }
 
-const CardReview = ({bookData, review, archiveBook, editReview, deleteReview}: CardReviewProps) => {
+const CardReview = ({review}: CardReviewProps) => {
+  const editReview = useReviewsStore((state) => state.editReview)
+  const deleteReview = useReviewsStore((state) => state.deleteReview)
+  const archiveReview = useReviewsStore((state) => state.archiveReview)
+
   return (
     <div className="book-review-container flex gap-5 p-4 border border-gray-300 rounded-lg mb-3 shadow-sm bg-gray-50 hover:shadow-md transition-shadow">
       <img
-        alt={`Portada de ${bookData.title}`}
-        className="book-cover w-28 h-44 rounded-md bg-gray-200"
-        src={bookData.imageSrc}
+        alt={`Portada de ${review.title}`}
+        className="book-cover w-24 h-36 rounded-md bg-gray-200"
+        src={review.coverLink}
       />
-      <div className="book-data-review flex-1 flex flex-col gap-1">
-        <h4 className="text-lg font-semibold">{bookData.title}</h4>
-        {/* <div className="starsReview flex items-center">{generateStarRating(review.rating)}</div> */}
-        <p>
-          <strong>Comentario:</strong> {review.description}
+      <div className="book-data-review flex-1 flex flex-col gap-2">
+        <div className="flex justify-between">
+          <h4 className="text-lg font-semibold">{review.title}</h4>
+          <div className="flex gap-1 justify-end">
+            <StyledButton
+              icon={<BookmarkSimple color="black" size={16} />}
+              onClick={() => archiveReview(review.id)}
+            />
+            <StyledButton
+              icon={<PencilSimple color="blue" size={16} />}
+              onClick={() => editReview(review.id)}
+            />
+            <StyledButton
+              icon={<Trash color="red" size={16} />}
+              onClick={() => deleteReview(review.id)}
+            />
+          </div>
+        </div>
+        <Rating ratingValue={Number(review.rating)} />
+        <p className=" text-sm ">
+          <span className="font-semibold">Comentario:</span> {review.description}
         </p>
-        <p>{/* <strong>Fecha de inicio:</strong> {review.startDate} */}</p>
-        <p>{/* <strong>Fecha de fin:</strong> {review.endDate} */}</p>
-      </div>
-      <div className="actions-container flex flex-col">
-        <button
-          className="archivar-review p-2 text-blue-500 hover:bg-gray-200 rounded"
-          onClick={() => archiveBook(review.id)}
-        >
-          <i className="ph ph-bookmark-simple" />
-        </button>
-        <button
-          className="edit-review p-2 text-blue-500 hover:bg-gray-200 rounded mt-2"
-          onClick={() => editReview(review.id)}
-        >
-          <i className="ph ph-pencil-simple" />
-        </button>
-        <button
-          className="delete-review p-2 text-red-500 hover:bg-gray-200 rounded mt-2"
-          onClick={() => deleteReview(review.id)}
-        >
-          <i className="ph ph-trash" />
-        </button>
+        <p className=" text-sm ">
+          <span className="font-semibold">Fecha de inicio:</span> {formatDate(review.startDate)}{' '}
+        </p>
+        <p className=" text-sm ">
+          <span className="font-semibold">Fecha de fin:</span> {formatDate(review.endDate)}{' '}
+        </p>
       </div>
     </div>
   )

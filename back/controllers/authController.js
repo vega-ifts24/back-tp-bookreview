@@ -1,6 +1,7 @@
 import { connection } from "../database/index.js"; // Importar la conexión a la base de datos.
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import chalk from "chalk";
 
 export const register = async (req, res) => {
   try {
@@ -36,7 +37,7 @@ export const register = async (req, res) => {
       message: "Usuario creado exitosamente",
     });
   } catch (error) {
-    console.error(error);
+    console.error(chalk.red("❌ Error al registrar usuario: "), error);
     res
       .status(error.status || 500)
       .send({ error: true, body: null, message: error.message || error });
@@ -46,7 +47,6 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    console.log(email, password);
     if (!email || !password) {
       throw "Debe completar todos los campos.";
     }
@@ -66,9 +66,7 @@ export const login = async (req, res) => {
     if (!passwordIsValid) {
       throw "El correo o la constraseña son incorrectos.";
     }
-    const token = jwt.sign({ id: rows[0].id }, process.env.SECRET_KEY, {
-      expiresIn: "24h",
-    });
+    const token = jwt.sign({ id: rows[0].id }, process.env.SECRET_KEY, {});
 
     res.status(200).send({
       error: false,
@@ -76,7 +74,7 @@ export const login = async (req, res) => {
       message: "Inicio de sesión exitoso.",
     });
   } catch (error) {
-    console.error(error);
+    console.error(chalk.red("❌ Error al iniciar sesión: "), error);
     res
       .status(error.status || 500)
       .send({ error: true, body: null, message: error.message || error });
