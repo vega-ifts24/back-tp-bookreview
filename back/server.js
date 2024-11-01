@@ -14,6 +14,12 @@ app.use(cors()); // Para permitir solicitudes de origen cruzado.
 
 const router = express.Router();
 
+// Middleware para registrar cada solicitud entrante
+app.use((req, _, next) => {
+  console.log(chalk.cyanBright(`\n${req.method} ${req.url}`));
+  next();
+});
+
 // Usar el enrutador raíz para todas las rutas de la API.
 app.use("/api", rootRouter);
 app.get("/", async (_, res) => {
@@ -93,7 +99,7 @@ app.get("/", async (_, res) => {
               <br/><h4>Contenido adicional:</h4>
               <ul>
                 <li>Headers: Autenticación requerida para crear, actualizar y eliminar reseñas.</li>
-                <li>Body para POST/PUT: { bookId, userId, description, rating, startDate, endDate }.</li>
+                <li>Body para POST/PUT: { bookId, userId, comment, rating, startDate, endDate }.</li>
               </ul>
             </li>
             <br/>

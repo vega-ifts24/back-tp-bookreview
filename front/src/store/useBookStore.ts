@@ -3,20 +3,17 @@ import {createJSONStorage, devtools, persist} from 'zustand/middleware'
 import {toast} from 'sonner'
 
 import {JSONResponse} from '@/types/JSONResponse'
-import {ReviewI} from '@/types/reviews'
 import {BookI} from '@/types/books'
 
-export interface ReviewsI {
+export interface BookStoreI {
   getAllBooks: ({busqueda}: {busqueda: string}) => Promise<JSONResponse<BookI[]>>
-  reviews: ReviewI[]
   loadingBooks: boolean
 }
 
-export const useBookStore = create<ReviewsI>()(
+export const useBookStore = create<BookStoreI>()(
   devtools(
-    persist<ReviewsI>(
+    persist<BookStoreI>(
       (set) => ({
-        reviews: [],
         loadingBooks: false,
 
         getAllBooks: async ({busqueda}: {busqueda: string}): Promise<JSONResponse<BookI[]>> => {
@@ -37,7 +34,7 @@ export const useBookStore = create<ReviewsI>()(
             const data = await response.json()
 
             if (data.error) {
-              set({loadingBooks: false, reviews: []})
+              set({loadingBooks: false})
 
               toast.error(data.message || 'Error al obtener los libros')
 

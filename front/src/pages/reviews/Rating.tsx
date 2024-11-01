@@ -7,9 +7,16 @@ interface RatingProps {
   setterReviewData?: (_: any) => void
   disabled?: boolean
   ratingValue?: number
+  size?: number
 }
 
-const Rating = ({reviewData, setterReviewData, disabled = true, ratingValue = 0}: RatingProps) => {
+const Rating = ({
+  reviewData,
+  setterReviewData,
+  disabled = true,
+  ratingValue = 0,
+  size = 20,
+}: RatingProps) => {
   const changeRatingStyles = (starNumber: number) => {
     // starNumber es el valor de la estrella que se está evaluando
     // ratingValue es el valor de la estrella seleccionada
@@ -31,7 +38,7 @@ const Rating = ({reviewData, setterReviewData, disabled = true, ratingValue = 0}
             setterReviewData && setterReviewData({...reviewData, rating: starNumber})
           }}
         >
-          <Star color={changeRatingStyles(starNumber)} size={20} weight="fill" />
+          <Star color={changeRatingStyles(starNumber)} size={size} weight="fill" />
         </button>
       ))}
     </div>

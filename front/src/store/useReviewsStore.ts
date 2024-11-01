@@ -9,22 +9,29 @@ export interface ReviewsStoreI {
   getReviewsByUser: ({token}: {token: string}) => Promise<JSONResponse<ReviewI[]>>
   reviews: ReviewI[]
   loadingReviews: boolean
-  editReview: (id: number) => Promise<JSONResponse<ReviewI[]>>
-  deleteReview: (id: number) => void
-  archiveReview: (id: number) => void
-  postReview: ({
+  deleteReview: ({id, token}: {id: number; token: string}) => Promise<JSONResponse<ReviewI[]>>
+  archiveReview: ({id, token}: {id: number; token: string}) => Promise<JSONResponse<ReviewI[]>>
+  createReview: ({
     token,
     review,
   }: {
     token: string
     review: ReviewFormI
   }) => Promise<JSONResponse<ReviewI>>
+  editReview: ({
+    id,
+    token,
+  }: {
+    id: number
+    token: string
+    review: ReviewFormI
+  }) => Promise<JSONResponse<ReviewI[]>>
 }
 
 export const useReviewsStore = create<ReviewsStoreI>()(
   devtools(
     persist<ReviewsStoreI>(
-      (set) => ({
+      (set, get) => ({
         reviews: [],
         loadingReviews: false,
         getReviewsByUser: async ({token}) => {
@@ -48,7 +55,7 @@ export const useReviewsStore = create<ReviewsStoreI>()(
 
               return data
             }
-
+            console.log('getReviewsByUser => data: ', data) // eslint-disable-line
             set({reviews: data?.body as ReviewI[], loadingReviews: false})
 
             return data
@@ -64,14 +71,7 @@ export const useReviewsStore = create<ReviewsStoreI>()(
             }
           }
         },
-        postReview: async ({
-          token,
-          review,
-        }: {
-          token: string
-          review: ReviewFormI
-        }): Promise<JSONResponse<ReviewI>> => {
-          console.log('postReview => token: ', token) // eslint-disable-line
+        createReview: async ({token, review}) => {
           try {
             const formattedReview = {
               ...review,
@@ -99,10 +99,11 @@ export const useReviewsStore = create<ReviewsStoreI>()(
             }
 
             toast.success(`Reseña de ${review.bookSelected.title} creada correctamente`)
+            get().getReviewsByUser({token})
 
             return data
           } catch (error) {
-            console.error('postReview => Error al crear la reseña: ', error) // eslint-disable-line
+            console.error('createReview => Error al crear la reseña: ', error) // eslint-disable-line
             toast.error('Error al crear la reseña')
 
             return {
@@ -115,15 +116,16 @@ export const useReviewsStore = create<ReviewsStoreI>()(
         },
         editReview: async ({id, token, review}) => {
           try {
-            const response = fetch(`${process.env.NEXT_PUBLIC_API_URL}/reviews/${id}`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/reviews/${id}`, {
               method: 'PUT',
               headers: {
                 'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
               },
               body: JSON.stringify(review),
             })
 
-            const data = await response
+            const data = await response.json()
 
             if (data.error) {
               toast.error(
@@ -134,6 +136,7 @@ export const useReviewsStore = create<ReviewsStoreI>()(
             }
 
             toast.success(`Reseña de ${review.bookSelected.title} editada correctamente`)
+            get().getReviewsByUser({token})
 
             return data
           } catch (error) {
@@ -141,17 +144,17 @@ export const useReviewsStore = create<ReviewsStoreI>()(
             toast.error('Error al editar la reseña')
           }
         },
-        deleteReview: async (id) => {
-          console.log('deleteReview => id: ', id) // eslint-disable-line
+        deleteReview: async ({id, token}) => {
           try {
-            const response = fetch(`${process.env.NEXT_PUBLIC_API_URL}/reviews/${id}`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/reviews/${id}`, {
               method: 'DELETE',
               headers: {
                 'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
               },
             })
 
-            const data = await response
+            const data = await response.json()
 
             if (data.error) {
               toast.error(data.message || 'Error al eliminar la reseña')
@@ -160,6 +163,7 @@ export const useReviewsStore = create<ReviewsStoreI>()(
             }
 
             toast.success('Reseña eliminada correctamente')
+            get().getReviewsByUser({token})
 
             return data
           } catch (error) {
@@ -167,16 +171,20 @@ export const useReviewsStore = create<ReviewsStoreI>()(
             toast.error('Error al eliminar la reseña')
           }
         },
-        archiveReview: async (id) => {
+        archiveReview: async ({id, token}) => {
           try {
-            const response = fetch(`${process.env.NEXT_PUBLIC_API_URL}/reviews/archive/${id}`, {
-              method: 'PUT',
-              headers: {
-                'Content-Type': 'application/json',
+            const response = await fetch(
+              `${process.env.NEXT_PUBLIC_API_URL}/reviews/archive/${id}`,
+              {
+                method: 'DELETE',
+                headers: {
+                  'Content-Type': 'application/json',
+                  Authorization: `Bearer ${token}`,
+                },
               },
-            })
+            )
 
-            const data = await response
+            const data = await response.json()
 
             if (data.error) {
               toast.error(data.message || 'Error al archivar la reseña')
@@ -184,12 +192,13 @@ export const useReviewsStore = create<ReviewsStoreI>()(
               return data
             }
 
-            toast.success('Reseña archivada correctamente')
+            toast.success(data.message || 'Reseña archivada correctamente')
+            get().getReviewsByUser({token})
 
             return data
           } catch (error) {
-            console.error('archiveReview => Error al archivar la reseña: ', error) // eslint-disable-line
-            toast.error('Error al archivar la reseña')
+            console.error('deleteReview => Error al eliminar la reseña: ', error) // eslint-disable-line
+            toast.error('Error al eliminar la reseña')
           }
         },
       }),

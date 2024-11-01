@@ -4,34 +4,30 @@ interface InputFieldProps {
   id: string
   title: string
   type?: string
-  value: string
   setter: (value: any) => void
   valueSetter: any
 }
 
-const InputField = ({
-  id,
-  title,
-  type = 'text',
-  value = '',
-  setter,
-  valueSetter,
-}: InputFieldProps) => {
-  const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+const InputField = ({id, title, type = 'text', setter, valueSetter}: InputFieldProps) => {
+  const handleOnChange = (e: ChangeEvent) => {
     setter({
       ...valueSetter,
       [e.target.id]: e.target.value,
     })
   }
 
+  const handleValue = () => {
+    return valueSetter[id]
+  }
+
   return (
-    <div className="relative ">
+    <div className="relative w-full ">
       <input
         className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border  appearance-none focus:outline-none focus:ring-0 focus:border-yellow-600 peer"
         id={id}
         placeholder=" "
         type={type}
-        value={value}
+        value={handleValue()}
         onChange={handleOnChange}
       />
       <label

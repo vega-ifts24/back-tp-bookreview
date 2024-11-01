@@ -17,7 +17,7 @@ CREATE TABLE `reviews` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `bookId` bigint unsigned NOT NULL,
   `userId` bigint unsigned NOT NULL,
-  `description` text,
+  `comment` text,
   `rating` float DEFAULT NULL,
   `startDate` date DEFAULT NULL,
   `endDate` date DEFAULT NULL,

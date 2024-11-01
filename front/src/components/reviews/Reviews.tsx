@@ -20,17 +20,14 @@ const Reviews = () => {
   }, [user, getReviewsByUser])
 
   return (
-    <section>
-      <h2>Listado</h2>
-      <ul>
-        {loadingReviews ? (
-          <p>Cargando...</p>
-        ) : reviews.length === 0 ? (
-          <p>Aún no tienes reseñas</p>
-        ) : (
-          reviews.map((review: ReviewI) => <CardReview key={review.id} review={review} />)
-        )}
-      </ul>
+    <section className=" flex flex-col gap-4">
+      {loadingReviews ? (
+        <p>Cargando...</p>
+      ) : reviews.length === 0 ? (
+        <p>Aún no tienes reseñas</p>
+      ) : (
+        reviews.map((review: ReviewI) => <CardReview key={review.id} review={review} />)
+      )}
     </section>
   )
 }

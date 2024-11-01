@@ -49,7 +49,7 @@ export const getReviewsByToken = async (req, res) => {
 
     // Consigo la review con el libro segun la columna bookId de la tabla reviews
     const [rows] = await connection.query(
-      "SELECT * FROM reviews LEFT JOIN books ON bookId = books.id WHERE userId =  ?",
+      "SELECT reviews.*, books.id as bookId, books.title, books.author FROM `book-review`.reviews JOIN books ON reviews.bookId = books.id WHERE reviews.userId = ?",
       [id]
     );
 
@@ -72,10 +72,21 @@ export const getReviewsByToken = async (req, res) => {
 export const createReview = async (req, res) => {
   try {
     const userId = req.userId;
-    const { bookId, description, rating, startDate, endDate } = req.body;
+    const { bookId, comment, rating, startDate, endDate } = req.body;
+    console.log(req.body);
+    // Validar si ya existe una reseña para el mismo libro y usuario
+    const [existingReview] = await connection.query(
+      "SELECT * FROM reviews WHERE bookId = ? AND userId = ?",
+      [bookId, userId]
+    );
+
+    if (existingReview.length > 0) {
+      throw { status: 400, message: "Ya tienes una reseña de este libro." };
+    }
+
     const result = await connection.query(
-      "INSERT INTO reviews (bookId, userId, description, rating, startDate, endDate) VALUES (?, ?, ?, ?, ?, ?)",
-      [bookId, userId, description, rating, startDate, endDate]
+      "INSERT INTO reviews (bookId, userId, comment, rating, startDate, endDate) VALUES (?, ?, ?, ?, ?, ?)",
+      [bookId, userId, comment, rating, startDate, endDate]
     );
     res.status(201).send({
       error: false,
@@ -98,6 +109,7 @@ export const createReview = async (req, res) => {
 export const deleteReviewById = async (req, res) => {
   try {
     const { id } = req.params;
+    console.log(id);
     const [result] = await connection.query(
       "DELETE FROM reviews WHERE id = ?",
       [id]
@@ -159,10 +171,10 @@ export const archiveReviewById = async (req, res) => {
 export const updateReviewById = async (req, res) => {
   try {
     const { id } = req.params;
-    const { description, rating, startDate, endDate } = req.body;
+    const { comment, rating, startDate, endDate } = req.body;
     const [result] = await connection.query(
-      "UPDATE reviews SET description = ?, rating = ?, startDate = ?, endDate = ? WHERE id = ?",
-      [description, rating, startDate, endDate, id]
+      "UPDATE reviews SET comment = ?, rating = ?, startDate = ?, endDate = ? WHERE id = ?",
+      [comment, rating, startDate, endDate, id]
     );
 
     if (result.affectedRows === 0) {

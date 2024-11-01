@@ -7,7 +7,7 @@ import {JSONResponse} from '@/types/JSONResponse'
 import {TokenI, UserI} from '@/types/user'
 
 export interface AuthI {
-  user: UserI | null
+  user: UserI
   setUser: (user: UserI) => void
   logout: () => void
   generateToken: (email: string, password: string) => Promise<JSONResponse<TokenI>>
@@ -34,7 +34,7 @@ export const useAuthStore = create<AuthI>()(
   devtools(
     persist<AuthI>(
       (set, get) => ({
-        user: null,
+        user: {} as UserI,
         setUser: (user: UserI) => set({user}),
         generateToken: async (email: string, password: string): Promise<JSONResponse<TokenI>> => {
           try {
@@ -114,7 +114,7 @@ export const useAuthStore = create<AuthI>()(
             toast.error('Error al iniciar sesión')
           }
         },
-        logout: () => set({user: null}),
+        logout: () => set({user: {} as UserI}),
         register: async ({
           firstName,
           surname,

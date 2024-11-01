@@ -1,33 +1,51 @@
 'use client'
 import {useEffect, useState} from 'react'
 import {toast} from 'sonner'
-import {Star} from '@phosphor-icons/react'
 
 import InputField from '../inputs/InputField'
 import StyledButton from '../buttons/StyledButton'
 
 import {useBookStore} from '@/store/useBookStore'
 import {BookI} from '@/types/books'
-import {ReviewFormI} from '@/types/reviews'
+import {ReviewFormI, ReviewI} from '@/types/reviews'
 import {useReviewsStore} from '@/store/useReviewsStore'
 import {useAuthStore} from '@/store/useAuthStore'
 import Rating from '@/pages/reviews/Rating'
+import {useModalStore} from '@/store/useModalStore'
 
-const ReviewForm = () => {
+interface ReviewFormProps {
+  review?: ReviewI
+}
+
+const ReviewForm = ({review}: ReviewFormProps) => {
   const getAllBooks = useBookStore((state) => state.getAllBooks)
-  const postReview = useReviewsStore((state) => state.postReview)
+  const createReview = useReviewsStore((state) => state.createReview)
+  const editReview = useReviewsStore((state) => state.editReview)
+
+  const setModal = useModalStore((state) => state.setModal)
+  const modal = useModalStore((state) => state.modal)
+
   const user = useAuthStore((state) => state.user)
+
   const [searchValue, setSearchValue] = useState({
     search: '',
   })
   const [books, setBooks] = useState<BookI[]>([])
   const [reviewData, setReviewData] = useState<ReviewFormI>({
-    rating: 0,
-    comment: '',
-    startDate: null,
-    endDate: null,
-    bookSelected: {} as BookI,
+    rating: review?.rating || 0,
+    comment: review?.comment || '',
+    startDate: review?.startDate.split('T')[0] || '',
+    endDate: review?.endDate.split('T')[0] || '',
+    bookSelected: {
+      id: review?.bookId || null,
+      title: review?.title || '',
+      author: review?.author || '',
+      coverLink: review?.coverLink || '',
+      gender: review?.gender || '',
+    },
   })
+
+  console.log('reviewData: ', reviewData) // eslint-disable-line
 
   const handleGetAllBooks = async ({busqueda}: {busqueda: string}) => {
     const data = await getAllBooks({busqueda})
@@ -36,7 +54,7 @@ const ReviewForm = () => {
       setBooks([])
       toast.error(data.message || 'Error al obtener los libros')
     } else {
-      setBooks((data?.body || []) as BookI[])
+      setBooks(data.body ? data.body.flat() : [])
     }
   }
 
@@ -44,9 +62,14 @@ const ReviewForm = () => {
     setReviewData({...reviewData, bookSelected: book})
     setBooks([])
   }
-
+  console.log('reviewData: ', reviewData) // eslint-disable-line
   const handleSendReview = () => {
-    postReview({token: user?.token, review: reviewData})
+    if (review?.id) {
+      editReview({token: user.token, id: review.id, review: reviewData})
+    } else {
+      createReview({token: user.token, review: reviewData})
+    }
+    setModal({...modal, visibilty: false})
   }
 
   useEffect(() => {
@@ -55,12 +78,12 @@ const ReviewForm = () => {
     } else {
       setBooks([])
     }
-  }, [searchValue.search])
+  }, [searchValue.search]) // eslint-disable-line
 
   return (
     <div className=" transition-all gap-4">
       {!reviewData?.bookSelected.id && (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-4">
           <h3 className="text-xl font-semi-bold  text-center">¿Qué libro querés reseñar?</h3>
 
           <div className=" relative ">
@@ -69,7 +92,6 @@ const ReviewForm = () => {
               setter={setSearchValue}
               title="Buscar libro"
               type="text"
-              value={searchValue.search}
               valueSetter={searchValue}
             />
             {/* resultados */}
@@ -103,49 +125,37 @@ const ReviewForm = () => {
               <p className="text-sm">{reviewData.bookSelected.author}</p>
             </div>
           </div>
-          <form className=" transition-all flex flex-col gap-4 " id="review-form">
+          <form className=" transition-all flex flex-col gap-4 pt-4 " id="review-form">
             {/* Puntaje */}
-            <div className=" flex flex-col gap-1">
-              <h3 className="text-lg font-semi-bold ">Puntaje</h3>
 
-              <Rating disabled={false} reviewData={reviewData} setterReviewData={setReviewData} />
-            </div>
+            <Rating disabled={false} reviewData={reviewData} setterReviewData={setReviewData} />
             {/* Campo de comentario */}
-            <div className=" flex flex-col gap-1">
-              <h3 className="text-lg font-semi-bold ">Comentario</h3>
-              <textarea
-                className="w-full p-2 border border-gray-300 rounded"
-                id="comment"
-                name="comment"
-                placeholder="Escribe tu reseña aquí..."
-                rows={5}
-              />
-            </div>
+            <textarea
+              className="w-full p-2 border border-gray-300 rounded"
+              id="comment"
+              name="comment"
+              placeholder="Escribe tu reseña aquí..."
+              rows={5}
+              value={reviewData.comment}
+              onChange={(e) => setReviewData({...reviewData, comment: e.target.value})}
+            />
 
             {/* Lapso de tiempo: Fecha inicio - Fecha fin */}
-            <div className="date-inputs flex justify-between mb-4">
-              <div className="date-div w-1/2 pr-2">
-                <label className="block mb-1" htmlFor="start-date">
-                  Fecha de inicio
-                </label>
-                <input
-                  className="w-full p-2 border border-gray-300 rounded"
-                  id="start-date"
-                  name="start-date"
-                  type="date"
-                />
-              </div>
-              <div className="date-div w-1/2 pl-2">
-                <label className="block mb-1" htmlFor="end-date">
-                  Fecha de fin
-                </label>
-                <input
-                  className="w-full p-2 border border-gray-300 rounded"
-                  id="end-date"
-                  name="end-date"
-                  type="date"
-                />
-              </div>
+            <div className="date-inputs flex justify-between w-full gap-4">
+              <InputField
+                id="startDate"
+                setter={setReviewData}
+                title="Fecha de inicio"
+                type="date"
+                valueSetter={reviewData}
+              />
+              <InputField
+                id="endDate"
+                setter={setReviewData}
+                title="Fecha de fin"
+                type="date"
+                valueSetter={reviewData}
+              />
             </div>
 
             {/* Botón de envío */}

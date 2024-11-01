@@ -5,7 +5,7 @@ import {Toaster} from 'sonner'
 
 import Footer from '@/components/Footer'
 import Header from '@/components/navbar/Header'
-
+import ModalParent from '@/components/modal/ModalParent'
 import './globals.css'
 
 const montserrat = Montserrat({
@@ -33,8 +33,9 @@ export default function RootLayout({children}: {children: ReactNode}) {
 
       <body className="w-full pt-16 px-6 flex flex-col items-center gap-6 bg-background text-bodyColor md:pt-24 ">
         <Header />
-        <main className="min-h-screen w-full px-4 text-bodyColor ">{children}</main>
+        <main className="min-h-screen w-full px-6 text-bodyColor ">{children}</main>
         <Toaster closeButton richColors position="bottom-right" />
+        <ModalParent />
         <Footer />
       </body>
     </html>

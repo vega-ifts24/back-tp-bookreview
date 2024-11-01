@@ -21,7 +21,7 @@ export const authMiddleWare = (req, res, next) => {
     console.error(
       chalk.red.inverse(
         " ------------------------------------ \n" +
-          "❌ Error de middleware: " +
+          "  Error de middleware: " +
           "\n ------------------------------------ "
       ),
       error
