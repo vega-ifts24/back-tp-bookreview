@@ -47,7 +47,8 @@ export const getBannerById = async (req, res) => {
 
 // Crear un nuevo Banner
 export const createBanner = async (req, res) => {
-  const { title, imageLink, section } = req.body;
+  const { title, section } = req.body;
+  const imageLink = req.file ? `/uploads/${req.file.filename}` : null; // Ruta de la imagen
 
   try {
     const result = await connection.query(

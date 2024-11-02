@@ -7,12 +7,13 @@ import {
   deleteBanner,
   updateBanner,
 } from "../../controllers/bannersController.js";
+import upload from "../../middleware/upload.js";
 
 const router = express.Router();
 
 router.get("/", getAllBanners);
 router.get("/:id", authMiddleWare, getBannerById);
-router.post("/", authMiddleWare, createBanner);
+router.post("/", authMiddleWare, upload.single("imageLink"), createBanner);
 router.delete("/:id", authMiddleWare, deleteBanner);
 router.put("/:id", authMiddleWare, updateBanner);
 
