@@ -8,7 +8,7 @@ export const authMiddleWare = (req, res, next) => {
     if (!authHeader) throw "Error de middleware, debe enviar un token";
 
     const token = authHeader.split(" ")[1];
-
+    console.log(token);
     if (!token) throw { status: 403, message: "Malformed Token" };
 
     jwt.verify(token, process.env.SECRET_KEY, (error, decoded) => {

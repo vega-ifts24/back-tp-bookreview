@@ -21,15 +21,14 @@ const ReviewForm = ({review}: ReviewFormProps) => {
   const getAllBooks = useBookStore((state) => state.getAllBooks)
   const createReview = useReviewsStore((state) => state.createReview)
   const editReview = useReviewsStore((state) => state.editReview)
-
+  const setFilterBooks = useBookStore((state) => state.setFilterBooks)
+  const filterBooks = useBookStore((state) => state.filterBooks)
+  const resetBooksValues = useBookStore((state) => state.resetBooksValues)
   const setModal = useModalStore((state) => state.setModal)
   const modal = useModalStore((state) => state.modal)
 
   const user = useAuthStore((state) => state.user)
 
-  const [searchValue, setSearchValue] = useState({
-    search: '',
-  })
   const [books, setBooks] = useState<BookI[]>([])
   const [reviewData, setReviewData] = useState<ReviewFormI>({
     rating: review?.rating || 0,
@@ -40,15 +39,13 @@ const ReviewForm = ({review}: ReviewFormProps) => {
       id: review?.bookId || null,
       title: review?.title || '',
       author: review?.author || '',
-      coverLink: review?.coverLink || '',
+      imageLink: review?.imageLink || '',
       gender: review?.gender || '',
     },
   })
 
-  console.log('reviewData: ', reviewData) // eslint-disable-line
-
-  const handleGetAllBooks = async ({busqueda}: {busqueda: string}) => {
-    const data = await getAllBooks({busqueda})
+  const handleGetAllBooks = async () => {
+    const data = await getAllBooks()
 
     if (data.error) {
       setBooks([])
@@ -62,7 +59,6 @@ const ReviewForm = ({review}: ReviewFormProps) => {
     setReviewData({...reviewData, bookSelected: book})
     setBooks([])
   }
-  console.log('reviewData: ', reviewData) // eslint-disable-line
   const handleSendReview = () => {
     if (review?.id) {
       editReview({token: user.token, id: review.id, review: reviewData})
@@ -72,13 +68,20 @@ const ReviewForm = ({review}: ReviewFormProps) => {
     setModal({...modal, visibilty: false})
   }
 
+  console.log('filterBooks.search: ', filterBooks.search) // eslint-disable-line
   useEffect(() => {
-    if (searchValue.search.length > 2) {
-      handleGetAllBooks({busqueda: searchValue.search})
+    if (filterBooks.search.length > 2) {
+      handleGetAllBooks()
     } else {
       setBooks([])
     }
-  }, [searchValue.search]) // eslint-disable-line
+  }, [filterBooks.search]) // eslint-disable-line
+
+  useEffect(() => {
+    return () => {
+      resetBooksValues()
+    }
+  }, []) // eslint-disable-line
 
   return (
     <div className=" transition-all gap-4">
@@ -89,10 +92,10 @@ const ReviewForm = ({review}: ReviewFormProps) => {
           <div className=" relative ">
             <InputField
               id="search"
-              setter={setSearchValue}
+              setter={setFilterBooks}
               title="Buscar libro"
               type="text"
-              valueSetter={searchValue}
+              valueSetter={filterBooks}
             />
             {/* resultados */}
             {books.length > 0 && (
@@ -118,7 +121,7 @@ const ReviewForm = ({review}: ReviewFormProps) => {
             <img
               alt={reviewData.bookSelected.title}
               className="w-16 h-8 rounded-md"
-              src={reviewData.bookSelected.coverLink}
+              src={reviewData.bookSelected.imageLink}
             />
             <div className="flex flex-col gap-1">
               <h3 className="text-xl font-semi-bold">{reviewData.bookSelected.title}</h3>

@@ -38,7 +38,7 @@ Antes de comenzar, asegúrate de tener instalados los siguientes programas en tu
      CREATE TABLE `book-review`.books (
          id BIGINT UNSIGNED auto_increment NOT NULL,
          title varchar(255) NOT NULL,
-         coverLink TEXT NULL,
+         imageLink TEXT NULL,
          author varchar(255) NULL,
          gender varchar(255) NULL,
          CONSTRAINT books_pk PRIMARY KEY (id)

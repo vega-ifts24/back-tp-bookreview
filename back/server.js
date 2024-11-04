@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(cors());
 
 // Servir archivos estáticos en la carpeta "uploads"
-app.use("/uploads", express.static("uploads"));
+app.use("/api/uploads", express.static("uploads"));
 
 // Middleware para registrar cada solicitud entrante
 app.use((req, _, next) => {

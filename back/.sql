@@ -6,7 +6,7 @@ CREATE DATABASE `book-review` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf
 CREATE TABLE `books` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
-  `coverLink` text,
+  `imageLink` text,
   `author` varchar(255) DEFAULT NULL,
   `gender` varchar(255) DEFAULT NULL,
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -60,7 +60,7 @@ CREATE DATABASE `book-review` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf
 CREATE TABLE `books` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
-  `coverLink` text,
+  `imageLink` text,
   `author` varchar(255) DEFAULT NULL,
   `gender` varchar(255) DEFAULT NULL,
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,

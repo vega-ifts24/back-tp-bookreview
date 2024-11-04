@@ -48,6 +48,7 @@ export const getGenderById = async (req, res) => {
 // Crear un nuevo género
 export const createGender = async (req, res) => {
   const { name } = req.body;
+  console.log(name);
   try {
     const result = await connection.query(
       "INSERT INTO `book-review`.genders (name) VALUES (?)",

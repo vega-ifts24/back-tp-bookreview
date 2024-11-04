@@ -6,7 +6,7 @@ import InputField from '../inputs/InputField'
 import StyledButton from '../buttons/StyledButton'
 
 import {useAuthStore} from '@/store/useAuthStore'
-
+import profile_image from '@/assets/default-profile.png'
 const RegisterForm: FC = () => {
   const router = useRouter()
   const register = useAuthStore((state) => state.register)
@@ -16,6 +16,10 @@ const RegisterForm: FC = () => {
     email: '',
     password: '',
     birth_date: '',
+    profile_image: {} as {
+      imageUrl: string
+      imageFile: File
+    },
   })
 
   const handleSubmit = (e: FormEvent) => {
@@ -37,25 +41,25 @@ const RegisterForm: FC = () => {
         id="registerForm"
         onSubmit={handleSubmit}
       >
-        <InputField
-          id="first_name"
-          setter={setFormData}
-          title="Nombre"
-          value={formData.first_name}
-          valueSetter={formData}
+        {/* Imagen de perfil */}
+        <img
+          alt={`Imagen de perfil de ${formData.first_name}`}
+          className="w-24 h-24 rounded-full bg-backgroundNavbar object-cover  self-center"
+          src={formData?.profile_image?.imageUrl || profile_image.src}
         />
         <InputField
-          id="surname"
+          id="profile_image"
           setter={setFormData}
-          title="Apellido"
-          value={formData.surname}
+          title="Imagen de perfil"
+          type="file"
           valueSetter={formData}
         />
+        <InputField id="first_name" setter={setFormData} title="Nombre" valueSetter={formData} />
+        <InputField id="surname" setter={setFormData} title="Apellido" valueSetter={formData} />
         <InputField
           id="email"
           setter={setFormData}
           title="Correo electrónico"
-          value={formData.email}
           valueSetter={formData}
         />
         <InputField
@@ -63,7 +67,6 @@ const RegisterForm: FC = () => {
           setter={setFormData}
           title="Contraseña"
           type="password"
-          value={formData.password}
           valueSetter={formData}
         />
         <InputField
@@ -71,7 +74,6 @@ const RegisterForm: FC = () => {
           setter={setFormData}
           title="Fecha de nacimiento"
           type="date"
-          value={formData.birth_date}
           valueSetter={formData}
         />
 

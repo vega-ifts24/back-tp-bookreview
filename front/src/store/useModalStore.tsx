@@ -9,6 +9,7 @@ export interface ModalStoreI {
     children: ReactNode
   }
   setModal: (modal: {visibilty: boolean; title: string; children: ReactNode | null}) => void
+  closeModal: () => void
 }
 
 export const useModalStore = create<ModalStoreI>()(
@@ -22,6 +23,9 @@ export const useModalStore = create<ModalStoreI>()(
         },
         setModal: (modal) => {
           set({modal})
+        },
+        closeModal: () => {
+          set({modal: {visibilty: false, title: '', children: null}})
         },
       }),
       {

@@ -10,7 +10,7 @@ export interface ReviewI {
   endDate: string
   archived: boolean
   title: string
-  coverLink: string
+  imageLink: string
   author: string
   gender: string
 }

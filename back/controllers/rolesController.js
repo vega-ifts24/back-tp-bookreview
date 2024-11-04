@@ -45,11 +45,11 @@ export const getRolById = async (req, res) => {
 
 // Crear un nuevo Rol
 export const createRol = async (req, res) => {
-  const { name } = req.body;
+  const { name, description } = req.body;
   try {
     const result = await connection.query(
-      "INSERT INTO `book-review`.roles (name) VALUES (?)",
-      [name]
+      "INSERT INTO `book-review`.roles (name, description)  VALUES (?,?)",
+      [name, description]
     );
     res.status(200).send({
       error: false,
@@ -67,6 +67,7 @@ export const createRol = async (req, res) => {
 // Actualizar un Rol existente
 export const updateRol = async (req, res) => {
   const { name, description } = req.body;
+  console.log(req.body);
   const { id } = req.params;
   try {
     const [result] = await connection.query(

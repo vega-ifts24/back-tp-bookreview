@@ -73,7 +73,7 @@ export const createReview = async (req, res) => {
   try {
     const userId = req.userId;
     const { bookId, comment, rating, startDate, endDate } = req.body;
-    console.log(req.body);
+
     // Validar si ya existe una reseña para el mismo libro y usuario
     const [existingReview] = await connection.query(
       "SELECT * FROM reviews WHERE bookId = ? AND userId = ?",

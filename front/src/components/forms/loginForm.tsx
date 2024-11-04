@@ -29,7 +29,6 @@ const LoginForm: FC = () => {
           setter={setFormData}
           title="Correo electrónico"
           type="email"
-          value={formData.email}
           valueSetter={formData}
         />
         <InputField
@@ -37,7 +36,6 @@ const LoginForm: FC = () => {
           setter={setFormData}
           title="Contraseña"
           type="password"
-          value={formData.password}
           valueSetter={formData}
         />
         <StyledButton

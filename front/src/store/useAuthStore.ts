@@ -151,7 +151,7 @@ export const useAuthStore = create<AuthI>()(
         },
       }),
       {
-        name: 'user-storage',
+        name: 'auth-storage',
         storage: createJSONStorage(() => localStorage), // eslint-disable-line
       },
     ),

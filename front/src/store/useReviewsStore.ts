@@ -26,6 +26,7 @@ export interface ReviewsStoreI {
     token: string
     review: ReviewFormI
   }) => Promise<JSONResponse<ReviewI[]>>
+  getAllReviews: () => Promise<JSONResponse<ReviewI[]>>
 }
 
 export const useReviewsStore = create<ReviewsStoreI>()(
@@ -35,7 +36,6 @@ export const useReviewsStore = create<ReviewsStoreI>()(
         reviews: [],
         loadingReviews: false,
         getReviewsByUser: async ({token}) => {
-          console.log('getReviewsByUser => token: ', token) // eslint-disable-line
           try {
             set({loadingReviews: true})
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/reviews/user/list`, {
@@ -55,7 +55,6 @@ export const useReviewsStore = create<ReviewsStoreI>()(
 
               return data
             }
-            console.log('getReviewsByUser => data: ', data) // eslint-disable-line
             set({reviews: data?.body as ReviewI[], loadingReviews: false})
 
             return data
@@ -199,6 +198,40 @@ export const useReviewsStore = create<ReviewsStoreI>()(
           } catch (error) {
             console.error('deleteReview => Error al eliminar la reseña: ', error) // eslint-disable-line
             toast.error('Error al eliminar la reseña')
+          }
+        },
+        getAllReviews: async () => {
+          try {
+            set({loadingReviews: true})
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/reviews`, {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            })
+
+            const data = await response.json()
+
+            if (data.error) {
+              set({loadingReviews: false, reviews: []})
+
+              toast.error(data.message || 'Error al obtener las reseñas')
+
+              return data
+            }
+            set({reviews: data?.body as ReviewI[], loadingReviews: false})
+
+            return data
+          } catch (error) {
+            console.error('getReviews => Error al obtener las reseñas: ', error) // eslint-disable-line
+            toast.error('Error al obtener las reseñas')
+
+            return {
+              error: true,
+              status: 500,
+              message: 'Error al obtener las reseñas',
+              body: null,
+            }
           }
         },
       }),

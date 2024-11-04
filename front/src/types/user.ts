@@ -9,6 +9,8 @@ export interface UserI {
   createdAt: string
   updatedAt: string
   token: string
+  rolId: number
+  profile_image: string
 }
 export interface TokenI {
   token: string
