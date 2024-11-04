@@ -24,7 +24,7 @@ const BookForm = ({typeForm, prevData}: BookFormProps) => {
   const closeModal = useModalStore((state) => state.closeModal)
   const [formData, setFormData] = useState({
     title: prevData?.title ?? '',
-    imageLink: prevData?.imageLink ?? '',
+    imageLink: prevData?.imageLink ?? undefined,
     author: prevData?.author ?? '',
     genderId: prevData?.genderId ?? 0,
   })

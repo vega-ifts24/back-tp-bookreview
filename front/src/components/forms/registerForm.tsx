@@ -10,13 +10,20 @@ import {useAuthStore} from '@/store/useAuthStore'
 const RegisterForm: FC = () => {
   const router = useRouter()
   const register = useAuthStore((state) => state.register)
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{
+    first_name: string
+    surname: string
+    email: string
+    password: string
+    birth_date: string
+    imageLink: string | File | undefined
+  }>({
     first_name: '',
     surname: '',
     email: '',
     password: '',
     birth_date: '',
-    imageLink: '',
+    imageLink: undefined,
   })
 
   const handleSubmit = async (e: FormEvent) => {
@@ -39,7 +46,7 @@ const RegisterForm: FC = () => {
           alt={`Imagen de perfil de ${formData.first_name}`}
           className="w-24 h-24 rounded-full bg-backgroundNavbar object-cover  self-center"
           src={
-            typeof formData?.imageLink === 'string' && formData?.imageLink.includes('uploads')
+            typeof formData?.imageLink === 'string' && formData?.imageLink?.includes('uploads')
               ? process.env.NEXT_PUBLIC_API_URL + formData?.imageLink
               : typeof formData?.imageLink === 'object'
                 ? URL.createObjectURL(formData?.imageLink)

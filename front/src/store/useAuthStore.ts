@@ -23,7 +23,7 @@ export interface AuthI {
       email: string
       password: string
       birth_date: string
-      imageLink?: string // Si es necesario, ajusta según tu modelo.
+      imageLink?: string | File | undefined
     }
     router: AppRouterInstance
   }) => Promise<void>

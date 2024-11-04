@@ -23,7 +23,7 @@ const BannerForm = ({typeForm, prevData}: BannerFormProps) => {
   const [formData, setFormData] = useState({
     title: prevData?.title || '',
     section: prevData?.section || '',
-    imageLink: prevData?.imageLink ?? null,
+    imageLink: prevData?.imageLink ?? undefined,
   })
 
   const handleSubmit = async (e: FormEvent) => {
@@ -34,8 +34,8 @@ const BannerForm = ({typeForm, prevData}: BannerFormProps) => {
       } else {
         await createBanner({token: user.token, formData})
       }
-      closeModal()
-      window.location.reload() // eslint-disable-line
+      // closeModal()
+      // window.location.reload() // eslint-disable-line
     } catch (error) {
       console.error('An error occurred:', error) // eslint-disable-line
     }
