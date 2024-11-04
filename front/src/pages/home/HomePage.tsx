@@ -14,7 +14,7 @@ const HomePage = () => {
   useEffect(() => {
     getAllBanners()
     getAllBooks()
-  }, [])
+  }, []) // eslint-disable-line
 
   return (
     <>

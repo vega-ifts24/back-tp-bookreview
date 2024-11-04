@@ -7,7 +7,6 @@ import StyledButton from '../buttons/StyledButton'
 
 import logo from '@/assets/logo.png'
 import {useAuthStore} from '@/store/useAuthStore'
-import profile_image from '@/assets/default-profile.png'
 const RegisterForm: FC = () => {
   const router = useRouter()
   const register = useAuthStore((state) => state.register)

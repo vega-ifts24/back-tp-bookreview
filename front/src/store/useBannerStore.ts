@@ -103,7 +103,7 @@ export const useBannerStore = create<BannerStoreI>()(
 
             return data
           } catch (error) {
-            console.error('createBanner => Error al crear el banner: ', error)
+            console.error('createBanner => Error al crear el banner: ', error) // eslint-disable-line
             toast.error('Error al crear el banner')
 
             return {
@@ -140,7 +140,7 @@ export const useBannerStore = create<BannerStoreI>()(
 
             return data
           } catch (error) {
-            console.error('editBanner => Error al editar el banner: ', error)
+            console.error('editBanner => Error al editar el banner: ', error) // eslint-disable-line
             toast.error('Error al editar el banner')
 
             return {
@@ -176,7 +176,7 @@ export const useBannerStore = create<BannerStoreI>()(
 
             return data
           } catch (error) {
-            console.error('deleteBanner => Error al eliminar el banner: ', error)
+            console.error('deleteBanner => Error al eliminar el banner: ', error) // eslint-disable-line
             toast.error('Error al eliminar el banner')
           }
         },
