@@ -46,13 +46,17 @@ const ReviewForm = ({review}: ReviewFormProps) => {
   })
 
   const handleGetAllBooks = async () => {
-    const data = await getAllBooks()
+    try {
+      const data = await getAllBooks()
 
-    if (data.error) {
-      setBooks([])
-      toast.error(data.message || 'Error al obtener los libros')
-    } else {
-      setBooks(data.body ? data.body.flat() : [])
+      if (data.error) {
+        setBooks([])
+        toast.error(data.message || 'Error al obtener los libros')
+      } else {
+        setBooks(data.body ? data.body.flat() : [])
+      }
+    } catch (error) {
+      console.error('handleGetAllBooks => Error: ', error) // eslint-disable-line
     }
   }
 

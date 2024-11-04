@@ -47,9 +47,13 @@ const BookForm = ({typeForm, prevData}: BookFormProps) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getAllGenders({token: user.token})
+      try {
+        const data = await getAllGenders({token: user.token})
 
-      setGenders(data.body)
+        setGenders(data.body)
+      } catch (error) {
+        console.error('An error occurred:', error) // eslint-disable-line
+      }
     }
 
     fetchData()

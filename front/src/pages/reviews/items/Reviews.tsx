@@ -14,9 +14,16 @@ const Reviews = () => {
   const loadingReviews = useReviewsStore((state) => state.loadingReviews)
 
   useEffect(() => {
-    if (user) {
-      getReviewsByUser({token: user.token})
+    async function fetchReviews() {
+      try {
+        if (user) {
+          getReviewsByUser({token: user.token})
+        }
+      } catch (error) {
+        console.error('Error al obtener las reseñas: ', error) // eslint-disable-line
+      }
     }
+    fetchReviews()
   }, [user, getReviewsByUser])
 
   return (

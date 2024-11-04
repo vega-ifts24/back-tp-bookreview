@@ -12,8 +12,15 @@ const HomePage = () => {
   const banners = useBannerStore((state) => state.banners)
 
   useEffect(() => {
-    getAllBanners()
-    getAllBooks()
+    async function fetchAllData() {
+      try {
+        await getAllBanners()
+        await getAllBooks()
+      } catch (error) {
+        console.error('Error al obtener los datos: ', error) // eslint-disable-line
+      }
+    }
+    fetchAllData()
   }, []) // eslint-disable-line
 
   return (
