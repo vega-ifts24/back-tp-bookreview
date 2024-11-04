@@ -9,6 +9,8 @@ import BannerForm from '@/components/forms/bannersForm'
 import RoleForm from '@/components/forms/roleForm'
 import {useBannerStore} from '@/store/useBannerStore'
 import {useRolesStore} from '@/store/useRolesStore'
+import {useUsersStore} from '@/store/useUsersStore'
+import UserForm from '@/components/forms/usersForm'
 
 interface NavBarSectionI {
   id: number
@@ -26,40 +28,6 @@ interface NavBarSectionI {
 export const DynamicNavBarSections: NavBarSectionI[] = [
   {id: 1, title: 'Inicio', href: '/', rol: 0},
   {id: 2, title: 'Mis reseñas', href: '/reviews', rol: 2},
-  {
-    id: 3,
-    title: 'Reseñas',
-    href: '/admin/reviews',
-    rol: 1,
-    values: useReviewsStore.getState().reviews,
-    getData: useReviewsStore.getState().getAllReviews,
-    onDelete: (id: number) => useReviewsStore.getState().deleteReview({id, token: ''}),
-  },
-  {id: 4, title: 'Usuarios', href: '/admin/users', rol: 1},
-  {
-    id: 5,
-    title: 'Roles',
-    href: '/admin/roles',
-    rol: 1,
-    form: <RoleForm />,
-    values: useRolesStore.getState().roles,
-    getData: useRolesStore.getState().getAllRoles,
-    onDelete: useRolesStore.getState().deleteRole,
-    onEdit: useRolesStore.getState().editRole,
-    onCreate: useRolesStore.getState().createRole,
-  },
-  {
-    id: 6,
-    title: 'Banners',
-    href: '/admin/banners',
-    rol: 1,
-    values: [],
-    getData: useBannerStore.getState().getAllBanners,
-    onDelete: useBannerStore.getState().deleteBanner,
-    onEdit: useBannerStore.getState().editBanner,
-    onCreate: useBannerStore.getState().createBanner,
-    form: <BannerForm />,
-  },
   {
     id: 7,
     title: 'Libros',
@@ -83,5 +51,50 @@ export const DynamicNavBarSections: NavBarSectionI[] = [
     onDelete: useGenderStore.getState().deleteGender,
     onEdit: useGenderStore.getState().editGender,
     onCreate: useGenderStore.getState().createGender,
+  },
+  {
+    id: 3,
+    title: 'Reseñas',
+    href: '/admin/reviews',
+    rol: 1,
+    values: useReviewsStore.getState().reviews,
+    getData: useReviewsStore.getState().getAllReviews,
+    onDelete: (id: number) => useReviewsStore.getState().deleteReview({id, token: ''}),
+  },
+  {
+    id: 6,
+    title: 'Banners',
+    href: '/admin/banners',
+    rol: 1,
+    values: [],
+    getData: useBannerStore.getState().getAllBanners,
+    onDelete: useBannerStore.getState().deleteBanner,
+    onEdit: useBannerStore.getState().editBanner,
+    onCreate: useBannerStore.getState().createBanner,
+    form: <BannerForm />,
+  },
+  {
+    id: 4,
+    title: 'Usuarios',
+    href: '/admin/users',
+    rol: 1,
+    form: <UserForm />,
+    values: useUsersStore.getState().users,
+    getData: useUsersStore.getState().getAllUsers,
+    onDelete: useUsersStore.getState().deleteUser,
+    onEdit: useUsersStore.getState().editUser,
+    onCreate: useUsersStore.getState().createUser,
+  },
+  {
+    id: 5,
+    title: 'Roles',
+    href: '/admin/roles',
+    rol: 1,
+    form: <RoleForm />,
+    values: useRolesStore.getState().roles,
+    getData: useRolesStore.getState().getAllRoles,
+    onDelete: useRolesStore.getState().deleteRole,
+    onEdit: useRolesStore.getState().editRole,
+    onCreate: useRolesStore.getState().createRole,
   },
 ]

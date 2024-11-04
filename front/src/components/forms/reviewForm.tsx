@@ -5,6 +5,7 @@ import {toast} from 'sonner'
 import InputField from '../inputs/InputField'
 import StyledButton from '../buttons/StyledButton'
 
+import logo from '@/assets/logo.png'
 import {useBookStore} from '@/store/useBookStore'
 import {BookI} from '@/types/books'
 import {ReviewFormI, ReviewI} from '@/types/reviews'
@@ -122,14 +123,21 @@ const ReviewForm = ({review}: ReviewFormProps) => {
 
       {reviewData?.bookSelected.id && (
         <>
-          <div className="flex gap-3 ">
+          <div className="flex gap-3">
             <img
               alt={reviewData.bookSelected.title}
-              className="w-16 h-8 rounded-md"
-              src={reviewData.bookSelected.imageLink}
+              className="w-24 h-36 rounded-md"
+              src={
+                typeof reviewData?.bookSelected?.imageLink === 'string' &&
+                reviewData?.bookSelected?.imageLink.includes('uploads')
+                  ? process.env.NEXT_PUBLIC_API_URL + reviewData?.bookSelected?.imageLink
+                  : typeof reviewData?.bookSelected?.imageLink === 'object'
+                    ? URL.createObjectURL(reviewData?.bookSelected?.imageLink)
+                    : logo?.src
+              }
             />
             <div className="flex flex-col gap-1">
-              <h3 className="text-xl font-semi-bold">{reviewData.bookSelected.title}</h3>
+              <h3 className="text-lg font-semi-bold">{reviewData.bookSelected.title}</h3>
               <p className="text-sm">{reviewData.bookSelected.author}</p>
             </div>
           </div>

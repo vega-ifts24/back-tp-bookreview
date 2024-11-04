@@ -66,7 +66,6 @@ export const createRol = async (req, res) => {
 // Actualizar un Rol existente
 export const updateRol = async (req, res) => {
   const { name, description } = req.body;
-  console.log(req.body);
   const { id } = req.params;
   try {
     const [result] = await connection.query(

@@ -43,7 +43,7 @@ export const getUserByToken = async (req, res) => {
 
 export const updateUser = async (req, res) => {
   try {
-    const id = req.userId;
+    const { id } = req.params;
     if (!id) throw "No se obtuvo un userId";
     const { first_name, surname, birth_date } = req.body;
     const [result] = await connection.query(
@@ -70,7 +70,8 @@ export const updateUser = async (req, res) => {
 
 export const deleteUser = async (req, res) => {
   try {
-    const id = req.userId;
+    const { id } = req.params;
+    console.log(id);
     if (!id) throw "No se obtuvo un userId";
     const [result] = await connection.query("DELETE FROM users WHERE id = ?", [
       id,

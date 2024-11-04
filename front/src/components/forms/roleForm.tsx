@@ -33,7 +33,7 @@ const RoleForm = ({typeForm, prevData}: RoleFormProps) => {
         await createRole({token: user.token, formData})
       }
       closeModal()
-      // window.location.reload()
+      window.location.reload() // eslint-disable-line
     } catch (error) {
       console.error('An error occurred:', error) // eslint-disable-line
     }

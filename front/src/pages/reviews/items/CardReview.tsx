@@ -10,7 +10,7 @@ import {useAuthStore} from '@/store/useAuthStore'
 import {useModalStore} from '@/store/useModalStore'
 import StyledButton from '@/components/buttons/StyledButton'
 import ReviewForm from '@/components/forms/reviewForm'
-
+import logo from '@/assets/logo.png'
 interface CardReviewProps {
   review: ReviewI // review + book
 }
@@ -29,7 +29,7 @@ const CardReview = ({review}: CardReviewProps) => {
       <img
         alt={`Portada de ${review?.title}`}
         className="w-24 h-36 rounded-md bg-gray-200"
-        src={review?.imageLink}
+        src={process.env.NEXT_PUBLIC_API_URL + review?.imageLink || logo?.src}
       />
       <div className=" flex-1 flex flex-col gap-2">
         <div>

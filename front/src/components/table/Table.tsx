@@ -7,6 +7,7 @@ import StyledButton from '../buttons/StyledButton'
 import logo from '@/assets/logo.png'
 import {useAuthStore} from '@/store/useAuthStore'
 import {useModalStore} from '@/store/useModalStore'
+import {formatDate} from '@/utils/constants/formatDate'
 
 interface TableProps {
   data: {
@@ -17,8 +18,8 @@ interface TableProps {
     form?: JSX.Element // Formulario opcional
     values?: any[]
     getData: ({token}: {token: string}) => Promise<any> // Cambia según el tipo de retorno
-    onDelete?: (id: number) => void
-    onEdit?: (item: any) => void
+    onDelete?: ({id, token}: {id: number; token: string | undefined}) => Promise<any>
+    onEdit?: ({id, token}: {id: number; token: string | undefined}) => Promise<any>
   }
 }
 function Table({data}: TableProps) {
@@ -42,6 +43,28 @@ function Table({data}: TableProps) {
     }
   }
 
+  //Valido si es type date pasandolo a date sino se puede no es
+  const isTypeDate = (column: string) => {
+    if (!column) return false
+    if (typeof column !== 'string') return false
+    if (column.length < 10) return false
+
+    const date = new Date(column)
+
+    return date instanceof Date && !isNaN(date.getTime())
+  }
+
+  // orden de columnas por id,imageLink, el resto de columnas, createdAt y updatedAt, y acciones
+  const orderColumns = (columns: string[]) => {
+    const columnsOrder = ['id', 'imageLink']
+    const columnsEnd = ['createdAt', 'updatedAt']
+    const columnsMiddle = columns.filter(
+      (column) => !columnsOrder.includes(column) && !columnsEnd.includes(column),
+    )
+
+    return [...columnsOrder, ...columnsMiddle, ...columnsEnd]
+  }
+
   useEffect(() => {
     if (data?.getData) {
       fetchData()
@@ -58,7 +81,7 @@ function Table({data}: TableProps) {
         <table className="min-w-full bg-white rounded-lg">
           <thead>
             <tr className="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
-              {columns.map((column) => (
+              {orderColumns(columns).map((column) => (
                 <th key={column} className="py-3 px-6 text-left">
                   {column}
                 </th>
@@ -78,13 +101,19 @@ function Table({data}: TableProps) {
             ) : (
               rows?.map((item, index) => (
                 <tr key={index} className="border-b border-gray-200 hover:bg-gray-50">
-                  {columns.map((column) => (
+                  {orderColumns(columns).map((column) => (
                     <td key={column} className="py-3 px-6 text-left whitespace-nowrap">
                       {column === 'imageLink' ? (
                         <>
                           <img
                             alt={`Imagen de perfil de ${item.title}`}
-                            className="w-full h-28 rounded-md bg-backgroundNavbar object-cover  self-center"
+                            className={`${
+                              data.title === 'Banners'
+                                ? ' w-full h-44 '
+                                : data.title === 'Usuarios'
+                                  ? ' w-20 h-20 rounded-full '
+                                  : ' w-36 h-56 '
+                            }  rounded-md bg-backgroundNavbar object-cover  self-center`}
                             src={process.env.NEXT_PUBLIC_API_URL + item[column] || logo?.src}
                           />
                           <a
@@ -95,6 +124,9 @@ function Table({data}: TableProps) {
                             {process.env.NEXT_PUBLIC_API_URL + item[column]}
                           </a>
                         </>
+                      ) : // Si es tipo fecha y es necesario formatear (puede ser cualquie columna)
+                      isTypeDate(item[column]) ? (
+                        formatDate(item[column])
                       ) : (
                         item[column]
                       )}
@@ -123,7 +155,10 @@ function Table({data}: TableProps) {
                             icon={<Trash color="red" size={16} />}
                             onClick={async () => {
                               if (data?.onDelete) {
-                                await data.onDelete(item.id)
+                                await data.onDelete({
+                                  id: item.id,
+                                  token: user.token,
+                                })
                               }
                               window.location.reload() // eslint-disable-line
                             }}

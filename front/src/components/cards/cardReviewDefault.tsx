@@ -3,7 +3,7 @@
 import Rating from '@/pages/reviews/items/Rating'
 import {ReviewI} from '@/types/reviews'
 import {formatDate} from '@/utils/constants/formatDate'
-
+import user_profile from '@/assets/default-profile.png'
 interface CardReviewDefaultProps {
   review: ReviewI & {first_name: string; surname: string; profile_image: string}
 }
@@ -21,7 +21,7 @@ const CardReviewDefault = ({review}: CardReviewDefaultProps) => {
           <img
             alt={`${review.first_name} ${review.surname}`}
             className="w-8 h-8 rounded-full"
-            src={review.profile_image}
+            src={process.env.NEXT_PUBLIC_API_URL + review.imageLink || user_profile.src}
           />
           <p className="text-sm font-semibold">
             {review.first_name} {review.surname}

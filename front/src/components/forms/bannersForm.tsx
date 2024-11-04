@@ -34,8 +34,8 @@ const BannerForm = ({typeForm, prevData}: BannerFormProps) => {
       } else {
         await createBanner({token: user.token, formData})
       }
-      // closeModal()
-      // window.location.reload() // eslint-disable-line
+      closeModal()
+      window.location.reload() // eslint-disable-line
     } catch (error) {
       console.error('An error occurred:', error) // eslint-disable-line
     }

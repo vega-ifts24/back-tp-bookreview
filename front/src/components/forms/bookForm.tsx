@@ -66,7 +66,13 @@ const BookForm = ({typeForm, prevData}: BookFormProps) => {
           <img
             alt={`Imagen de perfil de ${formData.title}`}
             className="w-24 h-28 rounded-md bg-backgroundNavbar object-cover  self-center"
-            src={formData?.imageLink?.imageUrl || logo?.src}
+            src={
+              typeof formData?.imageLink === 'string' && formData?.imageLink.includes('uploads')
+                ? process.env.NEXT_PUBLIC_API_URL + formData?.imageLink
+                : typeof formData?.imageLink === 'object'
+                  ? URL.createObjectURL(formData?.imageLink)
+                  : logo?.src
+            }
           />
           <InputField
             id="imageLink"

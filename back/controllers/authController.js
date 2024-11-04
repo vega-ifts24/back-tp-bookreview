@@ -7,6 +7,10 @@ export const register = async (req, res) => {
   try {
     const { first_name, surname, email, password, birth_date } = req.body;
     const imageLink = req.file ? `/uploads/${req.file.filename}` : null; // Ruta de la imagen
+
+    console.log(req.file);
+    console.log(req.body);
+
     // Campos obligatorios
     if (!first_name || !surname || !email || !password || !birth_date) {
       throw "Debe completar todos los campos para registrarse.";

@@ -10,7 +10,7 @@ export interface UserI {
   updatedAt: string
   token: string
   rolId: number
-  profile_image: string
+  imageLink: string
 }
 export interface TokenI {
   token: string

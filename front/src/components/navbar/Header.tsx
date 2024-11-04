@@ -20,6 +20,9 @@ const Header = () => {
 
   const handleLogout = (): void => {
     logout()
+
+    //Clean all the local storage data
+    localStorage.clear() // eslint-disable-line
   }
 
   return (
@@ -59,7 +62,7 @@ const Header = () => {
                   <img
                     alt={`Imagen de perfil de ${user.first_name}`}
                     className="w-8 h-8 rounded-full bg-background"
-                    src={user?.profile_image || profile_image.src}
+                    src={process.env.NEXT_PUBLIC_API_URL + user?.imageLink || profile_image.src}
                   />
                   <p className="md:hidden text-sm font-light">
                     {user.first_name} {user.surname}

@@ -68,7 +68,7 @@ const BookPage = ({params}: {params: {id: string}}) => {
         <article className="flex gap-4 flex-wrap">
           <img
             alt={book.title}
-            className="w-36 h-48 rounded-md bg-gray-200 object-cover "
+            className="w-36 h-56 rounded-md bg-gray-200 object-cover "
             src={process.env.NEXT_PUBLIC_API_URL + book.imageLink}
           />
           <div>
