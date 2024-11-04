@@ -5,6 +5,7 @@ import {useRouter} from 'next/navigation'
 import InputField from '../inputs/InputField'
 import StyledButton from '../buttons/StyledButton'
 
+import logo from '@/assets/logo.png'
 import {useAuthStore} from '@/store/useAuthStore'
 import profile_image from '@/assets/default-profile.png'
 const RegisterForm: FC = () => {
@@ -16,20 +17,13 @@ const RegisterForm: FC = () => {
     email: '',
     password: '',
     birth_date: '',
-    profile_image: {} as {
-      imageUrl: string
-      imageFile: File
-    },
+    imageLink: '',
   })
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    register({
-      firstName: formData.first_name,
-      surname: formData.surname,
-      email: formData.email,
-      password: formData.password,
-      birthDate: formData.birth_date,
+    await register({
+      formData,
       router,
     })
   }
@@ -45,10 +39,16 @@ const RegisterForm: FC = () => {
         <img
           alt={`Imagen de perfil de ${formData.first_name}`}
           className="w-24 h-24 rounded-full bg-backgroundNavbar object-cover  self-center"
-          src={formData?.profile_image?.imageUrl || profile_image.src}
+          src={
+            typeof formData?.imageLink === 'string' && formData?.imageLink.includes('uploads')
+              ? process.env.NEXT_PUBLIC_API_URL + formData?.imageLink
+              : typeof formData?.imageLink === 'object'
+                ? URL.createObjectURL(formData?.imageLink)
+                : logo?.src
+          }
         />
         <InputField
-          id="profile_image"
+          id="imageLink"
           setter={setFormData}
           title="Imagen de perfil"
           type="file"

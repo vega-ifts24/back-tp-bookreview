@@ -14,6 +14,7 @@ export interface BookStoreI {
     author: string
   }
   getAllBooks: () => Promise<JSONResponse<BookI[]>>
+  getBookById: (id: number) => Promise<JSONResponse<BookI>>
   createBook: ({
     token,
     formData,
@@ -90,6 +91,26 @@ export const useBookStore = create<BookStoreI>()(
           }
         },
 
+        getBookById: async (id: number): Promise<JSONResponse<BookI>> => {
+          try {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/books/${id}`, {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            })
+
+            const data = await response.json()
+
+            return data
+          } catch (error) {
+            console.error('getBookById => Error: ', error) // eslint-disable-line
+            toast.error('Error al obtener el libro')
+
+            return {error: true, status: 500, message: 'Error al obtener el libro', body: null}
+          }
+        },
+
         createBook: async ({token, formData}) => {
           const formattedData = new FormData()
 
@@ -160,7 +181,6 @@ export const useBookStore = create<BookStoreI>()(
         },
 
         deleteBook: async ({id, token}) => {
-          console.log('id', id)
           try {
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/books/${id}`, {
               method: 'DELETE',

@@ -48,9 +48,10 @@ export const getAllBooks = async (req, res) => {
 export const getBookById = async (req, res) => {
   const { id } = req.params;
   try {
-    const [rows] = await connection.query("SELECT * FROM books WHERE id = ?", [
-      id,
-    ]);
+    const [rows] = await connection.query(
+      "SELECT books.*, genders.name AS gender_name FROM books LEFT JOIN genders ON books.genderId = genders.id WHERE books.id = ?",
+      [id]
+    );
     if (rows.length === 0) {
       throw { status: 404, message: "Libro no encontrado." };
     } else {

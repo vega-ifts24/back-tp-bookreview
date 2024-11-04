@@ -7,7 +7,7 @@ import {BannerI} from '@/types/banners'
 
 export interface BannerStoreI {
   banners: BannerI[]
-  getAllBanners: ({token}: {token: string}) => Promise<JSONResponse<BannerI[]>>
+  getAllBanners: () => Promise<JSONResponse<BannerI[]>>
   createBanner: ({
     token,
     formData,
@@ -40,13 +40,12 @@ export const useBannerStore = create<BannerStoreI>()(
     persist<BannerStoreI>(
       (set) => ({
         banners: [],
-        getAllBanners: async ({token}) => {
+        getAllBanners: async () => {
           try {
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/banners`, {
               method: 'GET',
               headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`,
               },
             })
 
@@ -62,7 +61,7 @@ export const useBannerStore = create<BannerStoreI>()(
 
             return data
           } catch (error) {
-            console.error('getAllBanners => Error al obtener los banners: ', error)
+            console.error('getAllBanners => Error al obtener los banners: ', error) // eslint-disable-line
             toast.error('Error al obtener los banners')
 
             return {

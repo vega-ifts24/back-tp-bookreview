@@ -1,8 +1,9 @@
 'use client'
 import {Plus} from '@phosphor-icons/react'
 
+import Reviews from './items/Reviews'
+
 import StyledButton from '@/components/buttons/StyledButton'
-import Reviews from '@/components/reviews/Reviews'
 import ReviewForm from '@/components/forms/reviewForm'
 import {useModalStore} from '@/store/useModalStore'
 

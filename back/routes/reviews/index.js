@@ -7,6 +7,7 @@ import {
   getReviewById,
   getReviewsByToken,
   updateReviewById,
+  getReviewsByBook,
 } from "../../controllers/reviewsController.js";
 import { authMiddleWare } from "../../middleware/authMiddleware.js";
 
@@ -19,4 +20,6 @@ router.delete("/:id", authMiddleWare, deleteReviewById);
 router.put("/:id", authMiddleWare, updateReviewById);
 router.delete("/archive/:id", authMiddleWare, archiveReviewById);
 router.get("/user/list", authMiddleWare, getReviewsByToken);
+router.get("/book/:id", getReviewsByBook);
+
 export default router;

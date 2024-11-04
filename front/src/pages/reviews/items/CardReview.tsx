@@ -2,15 +2,14 @@
 
 import {BookmarkSimple, PencilSimple, Trash} from '@phosphor-icons/react'
 
-import StyledButton from '../buttons/StyledButton'
-import ReviewForm from '../forms/reviewForm'
-
-import Rating from '@/pages/reviews/Rating'
+import Rating from '@/pages/reviews/items/Rating'
 import {ReviewI} from '@/types/reviews'
 import {formatDate} from '@/utils/constants/formatDate'
 import {useReviewsStore} from '@/store/useReviewsStore'
 import {useAuthStore} from '@/store/useAuthStore'
 import {useModalStore} from '@/store/useModalStore'
+import StyledButton from '@/components/buttons/StyledButton'
+import ReviewForm from '@/components/forms/reviewForm'
 
 interface CardReviewProps {
   review: ReviewI // review + book

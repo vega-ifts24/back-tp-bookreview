@@ -6,11 +6,13 @@ import chalk from "chalk";
 export const register = async (req, res) => {
   try {
     const { first_name, surname, email, password, birth_date } = req.body;
-
+    const imageLink = req.file ? `/uploads/${req.file.filename}` : null; // Ruta de la imagen
     // Campos obligatorios
     if (!first_name || !surname || !email || !password || !birth_date) {
       throw "Debe completar todos los campos para registrarse.";
     }
+
+    console.log(first_name, surname, email, password, birth_date, imageLink);
 
     // Chequeo que el mail no esté en uso
     const [rows] = await connection.query(
@@ -27,10 +29,9 @@ export const register = async (req, res) => {
     const hashPassword = bcrypt.hashSync(password, 8);
 
     const result = await connection.query(
-      "INSERT INTO users (first_name, surname, email, password, birth_date) VALUES (?, ?, ?, ?, ?)",
-      [first_name, surname, email, hashPassword, birth_date]
+      "INSERT INTO users (first_name, surname, email, password, birth_date,imageLink) VALUES (?, ?, ?, ?, ?, ?)",
+      [first_name, surname, email, hashPassword, birth_date, imageLink]
     );
-
     res.status(201).send({
       error: false,
       body: [{ id: result[0].insertId }],

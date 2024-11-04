@@ -4,7 +4,10 @@ import { connection } from "../database/index.js"; // Importar la conexión a la
 // Obtener todas las review
 export const getAllReviews = async (_, res) => {
   try {
-    const [rows] = await connection.query("SELECT * from reviews");
+    // Obtener todas las reseñas con la imageLink name y surname del usuario
+    const [rows] = await connection.query(
+      "SELECT reviews.*, users.first_name, users.surname, users.imageLink FROM reviews JOIN users ON reviews.userId = users.id"
+    );
     res.status(200).send({
       error: false,
       body: rows,
@@ -37,6 +40,30 @@ export const getReviewById = async (req, res) => {
     }
   } catch (error) {
     console.error(chalk.red("❌ Error al obtener reseña por ID: "), error);
+    res
+      .status(error.status || 500)
+      .send({ error: true, body: null, message: error.message || error });
+  }
+};
+
+// Obtener reviews por libro
+export const getReviewsByBook = async (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log(id);
+    const [rows] = await connection.query(
+      "SELECT reviews.*, users.first_name, users.surname, users.imageLink FROM reviews JOIN users ON reviews.userId = users.id WHERE bookId = ?",
+      [id]
+    );
+    res.status(200).send({
+      error: false,
+      body: rows,
+      message: rows.length
+        ? "Reseñas obtenidas con éxito."
+        : "Aún no hay reseñas.",
+    });
+  } catch (error) {
+    console.error(chalk.red("❌ Error al obtener reseñas por libro: "), error);
     res
       .status(error.status || 500)
       .send({ error: true, body: null, message: error.message || error });

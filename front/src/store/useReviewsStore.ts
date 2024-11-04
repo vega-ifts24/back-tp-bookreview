@@ -27,6 +27,7 @@ export interface ReviewsStoreI {
     review: ReviewFormI
   }) => Promise<JSONResponse<ReviewI[]>>
   getAllReviews: () => Promise<JSONResponse<ReviewI[]>>
+  getReviewsByBook: ({bookId}: {bookId: number}) => Promise<JSONResponse<ReviewI[]>>
 }
 
 export const useReviewsStore = create<ReviewsStoreI>()(
@@ -60,6 +61,39 @@ export const useReviewsStore = create<ReviewsStoreI>()(
             return data
           } catch (error) {
             console.error('getReviews => Error al obtener las reseñas: ', error) // eslint-disable-line
+            toast.error('Error al obtener las reseñas')
+
+            return {
+              error: true,
+              status: 500,
+              message: 'Error al obtener las reseñas',
+              body: null,
+            }
+          }
+        },
+        getReviewsByBook: async ({bookId}) => {
+          try {
+            const response = await fetch(
+              `${process.env.NEXT_PUBLIC_API_URL}/reviews/book/${bookId}`,
+              {
+                method: 'GET',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+              },
+            )
+
+            const data = await response.json()
+
+            if (data.error) {
+              toast.error(data.message || 'Error al obtener las reseñas')
+
+              return data
+            }
+
+            return data
+          } catch (error) {
+            console.error('getReviewsByBook => Error al obtener las reseñas: ', error) // eslint-disable-line
             toast.error('Error al obtener las reseñas')
 
             return {

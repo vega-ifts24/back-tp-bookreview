@@ -14,18 +14,17 @@ export interface AuthI {
   getUserDataByToken: (token: string) => Promise<JSONResponse<UserI>>
   login: (email: string, password: string, router: AppRouterInstance) => Promise<void>
   register: ({
-    firstName,
-    surname,
-    email,
-    password,
-    birthDate,
+    formData,
     router,
   }: {
-    firstName: string
-    surname: string
-    email: string
-    password: string
-    birthDate: string
+    formData: {
+      first_name: string
+      surname: string
+      email: string
+      password: string
+      birth_date: string
+      imageLink?: string // Si es necesario, ajusta según tu modelo.
+    }
     router: AppRouterInstance
   }) => Promise<void>
 }
@@ -115,30 +114,27 @@ export const useAuthStore = create<AuthI>()(
           }
         },
         logout: () => set({user: {} as UserI}),
-        register: async ({
-          firstName,
-          surname,
-          email,
-          password,
-          birthDate,
-          router,
-        }): Promise<void> => {
+        register: async ({formData, router}): Promise<void> => {
+          const formatedData = new FormData()
+
+          formatedData.append('first_name', formData.first_name)
+          formatedData.append('surname', formData.surname)
+          formatedData.append('email', formData.email)
+          formatedData.append('password', formData.password)
+          formatedData.append('birth_date', formData.birth_date)
+          if (formData.imageLink) {
+            formatedData.append('imageLink', formData.imageLink)
+          }
+
           try {
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/register`, {
               method: 'POST',
-              headers: {'Content-Type': 'application/json'},
-              body: JSON.stringify({
-                first_name: firstName,
-                surname,
-                email,
-                password,
-                birth_date: birthDate,
-              }),
+              body: formatedData,
             })
             const data = await response.json()
 
             if (data.error) {
-              toast.error(data.message || 'Error al registrarse')
+              toast.error(data.message || 'Error al registrarse 1')
 
               return
             }
@@ -146,7 +142,7 @@ export const useAuthStore = create<AuthI>()(
             router.push('/login')
           } catch (error) {
             console.error('register => Error al registrarse: ', error) // eslint-disable-line
-            toast.error('Error al registrarse')
+            toast.error('Error al registrarse 2')
           }
         },
       }),

@@ -10,7 +10,7 @@ import {BookI} from '@/types/books'
 import {ReviewFormI, ReviewI} from '@/types/reviews'
 import {useReviewsStore} from '@/store/useReviewsStore'
 import {useAuthStore} from '@/store/useAuthStore'
-import Rating from '@/pages/reviews/Rating'
+import Rating from '@/pages/reviews/items/Rating'
 import {useModalStore} from '@/store/useModalStore'
 
 interface ReviewFormProps {
