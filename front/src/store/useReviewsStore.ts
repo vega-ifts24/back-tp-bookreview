@@ -6,11 +6,11 @@ import {JSONResponse} from '@/types/JSONResponse'
 import {ReviewFormI, ReviewI} from '@/types/reviews'
 
 export interface ReviewsStoreI {
-  getReviewsByUser: ({token}: {token: string}) => Promise<JSONResponse<ReviewI[]>>
+  getReviewsByUser: ({token}: {token: string}) => Promise<JSONResponse<ReviewI>>
   reviews: ReviewI[]
   loadingReviews: boolean
-  deleteReview: ({id, token}: {id: number; token: string}) => Promise<JSONResponse<ReviewI[]>>
-  archiveReview: ({id, token}: {id: number; token: string}) => Promise<JSONResponse<ReviewI[]>>
+  deleteReview: ({id, token}: {id: number; token: string}) => Promise<JSONResponse<ReviewI>>
+  archiveReview: ({id, token}: {id: number; token: string}) => Promise<JSONResponse<ReviewI>>
   createReview: ({
     token,
     review,
@@ -25,9 +25,9 @@ export interface ReviewsStoreI {
     id: number
     token: string
     review: ReviewFormI
-  }) => Promise<JSONResponse<ReviewI[]>>
-  getAllReviews: () => Promise<JSONResponse<ReviewI[]>>
-  getReviewsByBook: ({bookId}: {bookId: number}) => Promise<JSONResponse<ReviewI[]>>
+  }) => Promise<JSONResponse<ReviewI>>
+  getAllReviews: () => Promise<JSONResponse<ReviewI>>
+  getReviewsByBook: ({bookId}: {bookId: number}) => Promise<JSONResponse<ReviewI>>
 }
 
 export const useReviewsStore = create<ReviewsStoreI>()(

@@ -15,9 +15,7 @@ export default function Layout({children}: {children: ReactNode}) {
     if (user.rolId) {
       if (isRol('admin', user.rolId)) {
         setIsAuthorized(true)
-        console.log('User is authorized')
       } else {
-        console.log('User is not authorized')
         router.push('/')
       }
     }

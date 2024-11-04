@@ -1,3 +1,4 @@
+// eslint-disable
 'use client'
 
 import {useEffect, useState} from 'react'
@@ -42,7 +43,13 @@ const BookPage = ({params}: {params: {id: string}}) => {
 
       if (!responseData.error) {
         if (responseData?.body && responseData.body.length > 0) {
-          setReviews(responseData.body)
+          setReviews(
+            responseData.body as (ReviewI & {
+              first_name: string
+              surname: string
+              profile_image: string
+            })[],
+          )
         }
       }
     } catch (error) {

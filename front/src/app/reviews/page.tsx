@@ -10,7 +10,7 @@ const ReviewPageComponent = () => {
   const router = useRouter()
   const user = useAuthStore((state) => state.user)
 
-  if (isRol('user', user)) {
+  if (isRol('user', user.rolId)) {
     return router.push('/')
   }
 

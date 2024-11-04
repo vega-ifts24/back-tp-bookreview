@@ -1,5 +1,5 @@
 'use client'
-import {ChangeEvent, FormEvent, useEffect, useState} from 'react'
+import {FormEvent, useState} from 'react'
 
 import InputField from '../inputs/InputField'
 import StyledButton from '../buttons/StyledButton'
@@ -21,9 +21,9 @@ const BannerForm = ({typeForm, prevData}: BannerFormProps) => {
   const closeModal = useModalStore((state) => state.closeModal)
 
   const [formData, setFormData] = useState({
-    title: '' || prevData?.title,
-    section: '' || prevData?.section,
-    imageLink: null || prevData?.imageLink,
+    title: prevData?.title || '',
+    section: prevData?.section || '',
+    imageLink: prevData?.imageLink ?? null,
   })
 
   const handleSubmit = async (e: FormEvent) => {
@@ -35,7 +35,7 @@ const BannerForm = ({typeForm, prevData}: BannerFormProps) => {
         await createBanner({token: user.token, formData})
       }
       closeModal()
-      window.location.reload()
+      window.location.reload() // eslint-disable-line
     } catch (error) {
       console.error('An error occurred:', error) // eslint-disable-line
     }

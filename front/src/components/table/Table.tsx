@@ -122,14 +122,10 @@ function Table({data}: TableProps) {
                           <StyledButton
                             icon={<Trash color="red" size={16} />}
                             onClick={async () => {
-                              console.log(item.id)
                               if (data?.onDelete) {
-                                await data.onDelete({
-                                  id: item.id,
-                                  token: user.token,
-                                })
+                                await data.onDelete(item.id)
                               }
-                              window.location.reload()
+                              window.location.reload() // eslint-disable-line
                             }}
                           />
                         )}

@@ -45,12 +45,7 @@ const Header = () => {
             {DynamicNavBarSections?.map(
               (button) =>
                 (button.rol === 0 || user.rolId === button.rol) && (
-                  <ButtonNav
-                    key={button.id}
-                    handleOnClick={button.onClick} // Make sure to use the correct handler
-                    href={button.href}
-                    title={button.title}
-                  />
+                  <ButtonNav key={button.id} href={button.href} title={button.title} />
                 ),
             )}
           </div>

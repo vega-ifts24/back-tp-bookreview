@@ -9,6 +9,7 @@ import logo from '@/assets/logo.png'
 import {useAuthStore} from '@/store/useAuthStore'
 import {useBookStore} from '@/store/useBookStore'
 import {useModalStore} from '@/store/useModalStore'
+import {GenderI} from '@/types/gender'
 
 interface BookFormProps {
   typeForm?: string
@@ -27,7 +28,7 @@ const BookForm = ({typeForm, prevData}: BookFormProps) => {
     author: prevData?.author ?? '',
     genderId: prevData?.genderId ?? 0,
   })
-  const [genders, setGenders] = useState([])
+  const [genders, setGenders] = useState<GenderI[] | null>([])
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
@@ -38,7 +39,7 @@ const BookForm = ({typeForm, prevData}: BookFormProps) => {
         await createBook({token: user.token, formData})
       }
       closeModal()
-      window.location.reload()
+      window.location.reload() // eslint-disable-line
     } catch (error) {
       console.error('An error occurred:', error) // eslint-disable-line
     }

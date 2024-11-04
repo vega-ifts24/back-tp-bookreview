@@ -16,7 +16,7 @@ interface NavBarSectionI {
   href: string
   rol: number // 0: all, 1: admin, 2: user
   values?: any[]
-  form?: JSX.Element // Formulario opcional
+  form?: any
   getData?: any
   onDelete?: any
   onEdit?: any

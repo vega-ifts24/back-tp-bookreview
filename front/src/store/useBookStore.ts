@@ -13,7 +13,7 @@ export interface BookStoreI {
     genderId: string
     author: string
   }
-  getAllBooks: () => Promise<JSONResponse<BookI[]>>
+  getAllBooks: () => Promise<JSONResponse<BookI>>
   getBookById: (id: number) => Promise<JSONResponse<BookI>>
   createBook: ({
     token,
@@ -62,7 +62,7 @@ export const useBookStore = create<BookStoreI>()(
           set({filterBooks: filter})
         },
 
-        getAllBooks: async (): Promise<JSONResponse<BookI[]>> => {
+        getAllBooks: async () => {
           try {
             set({loadingBooks: true})
             let url = `${process.env.NEXT_PUBLIC_API_URL}/books`

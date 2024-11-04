@@ -23,18 +23,18 @@ const CardReview = ({review}: CardReviewProps) => {
 
   return (
     <div
-      className={` ${review.archived && 'opacity-20'} 
+      className={` ${review?.archived && 'opacity-20'} 
         flex gap-5 p-4 border border-gray-300 rounded-lg  shadow-sm bg-gray-50 hover:shadow-md transition-shadow`}
     >
       <img
-        alt={`Portada de ${review.title}`}
+        alt={`Portada de ${review?.title}`}
         className="w-24 h-36 rounded-md bg-gray-200"
-        src={review.imageLink}
+        src={review?.imageLink}
       />
       <div className=" flex-1 flex flex-col gap-2">
         <div>
           <div className="flex justify-between">
-            <h4 className="text-lg font-semibold">{review.title}</h4>
+            <h4 className="text-lg font-semibold">{review?.title}</h4>
 
             <div className="flex gap-1 justify-end">
               <StyledButton
@@ -42,10 +42,10 @@ const CardReview = ({review}: CardReviewProps) => {
                   <BookmarkSimple
                     color="black"
                     size={16}
-                    weight={review.archived ? 'fill' : 'regular'}
+                    weight={review?.archived ? 'fill' : 'regular'}
                   />
                 }
-                onClick={() => archiveReview({id: review.id, token: user.token})}
+                onClick={() => archiveReview({id: review?.id, token: user.token})}
               />
               <StyledButton
                 icon={<PencilSimple color="blue" size={16} />}
@@ -59,19 +59,19 @@ const CardReview = ({review}: CardReviewProps) => {
               />
               <StyledButton
                 icon={<Trash color="red" size={16} />}
-                onClick={() => deleteReview({id: review.id, token: user.token})}
+                onClick={() => deleteReview({id: review?.id, token: user.token})}
               />
             </div>
           </div>
           <div className="flex gap-2">
-            <p className="text-sm">{review.author}</p>·
-            <Rating ratingValue={Number(review.rating)} size={14} />
+            <p className="text-sm">{review?.author}</p>·
+            <Rating ratingValue={Number(review?.rating)} size={14} />
           </div>
         </div>
         <p className=" text-xs ">
-          {formatDate(review.startDate)} - {formatDate(review.endDate)}
+          {formatDate(review?.startDate)} - {formatDate(review?.endDate)}
         </p>
-        <p className=" text-sm ">{review.comment}</p>
+        <p className=" text-sm ">{review?.comment}</p>
       </div>
     </div>
   )

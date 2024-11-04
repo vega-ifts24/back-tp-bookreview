@@ -7,7 +7,7 @@ import {GenderI} from '@/types/gender'
 
 export interface GenderStoreI {
   genders: GenderI[]
-  getAllGenders: ({token}: {token: string}) => Promise<JSONResponse<GenderI[]>>
+  getAllGenders: ({token}: {token: string}) => Promise<JSONResponse<GenderI>>
   createGender: ({
     token,
     formData,

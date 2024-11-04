@@ -14,14 +14,13 @@ interface GenderFormProps {
 }
 
 const GenderForm = ({typeForm, prevData}: GenderFormProps) => {
-  const getAllGenders = useGenderStore((state) => state.getAllGenders)
   const createGender = useGenderStore((state) => state.createGender)
   const editGender = useGenderStore((state) => state.editGender)
   const closeModal = useModalStore((state) => state.closeModal)
   const user = useAuthStore((state) => state.user)
 
   const [formData, setFormData] = useState({
-    name: '' || prevData?.name,
+    name: prevData?.name || '',
   })
 
   const handleSubmit = async (e: FormEvent) => {
@@ -33,7 +32,7 @@ const GenderForm = ({typeForm, prevData}: GenderFormProps) => {
         await createGender({token: user.token, formData})
       }
       closeModal()
-      window.location.reload()
+      window.location.reload() // eslint-disable-line
     } catch (error) {
       console.error('An error occurred:', error) // eslint-disable-line
     }

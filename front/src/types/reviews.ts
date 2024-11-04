@@ -12,7 +12,8 @@ export interface ReviewI {
   title: string
   imageLink: string
   author: string
-  gender: string
+  genderId: number
+  gender_name: string
 }
 
 export interface ReviewFormI {

@@ -40,7 +40,8 @@ const ReviewForm = ({review}: ReviewFormProps) => {
       title: review?.title || '',
       author: review?.author || '',
       imageLink: review?.imageLink || '',
-      gender: review?.gender || '',
+      genderId: review?.genderId || 0,
+      gender_name: review?.gender_name || '',
     },
   })
 
