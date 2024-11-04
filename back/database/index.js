@@ -1,6 +1,8 @@
 // back/database/index.js
 import mysql from "mysql2/promise";
 import chalk from "chalk";
+import dotenv from "dotenv";
+dotenv.config();
 
 // Crear la conexión con la base de datos usando `mysql2` y `Promise`.
 let connection;
@@ -13,7 +15,6 @@ async function connectToDatabase() {
       password: process.env.DB_PASSWORD || "",
       database: process.env.DB_NAME || "book-review",
     });
-
     console.log(
       chalk.green.inverse.bold(
         " ------------------------------------ \n" +
