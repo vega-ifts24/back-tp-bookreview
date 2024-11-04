@@ -33,7 +33,7 @@ const Reviews = () => {
       ) : reviews.length === 0 ? (
         <p>Aún no tienes reseñas</p>
       ) : (
-        reviews.map((review: ReviewI) => <CardReview key={review.id} review={review} />)
+        reviews?.map((review: ReviewI) => <CardReview key={review.id} review={review} />)
       )}
     </section>
   )

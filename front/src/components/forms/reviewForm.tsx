@@ -106,7 +106,7 @@ const ReviewForm = ({review}: ReviewFormProps) => {
             {/* resultados */}
             {books.length > 0 && (
               <ul className="absolute w-full bg-white border border-gray-300 rounded-md mt-1">
-                {books.map((book) => (
+                {books?.map((book) => (
                   <li
                     key={book.id}
                     className="p-2 hover:bg-gray-100 cursor-pointer"

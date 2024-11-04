@@ -56,8 +56,15 @@ function Table({data}: TableProps) {
 
   // orden de columnas por id,imageLink, el resto de columnas, createdAt y updatedAt, y acciones
   const orderColumns = (columns: string[]) => {
-    const columnsOrder = ['id', 'imageLink']
-    const columnsEnd = ['createdAt', 'updatedAt']
+    // si tiene imageLink lo pongo en la segunda posicion
+    let columnsOrder = ['id']
+    let columnsEnd = ['createdAt', 'updatedAt']
+
+    // si tiene imageLink lo pongo en la segunda posicion
+    if (columns.includes('imageLink')) {
+      columnsOrder = ['id', 'imageLink']
+    }
+
     const columnsMiddle = columns.filter(
       (column) => !columnsOrder.includes(column) && !columnsEnd.includes(column),
     )
@@ -81,7 +88,7 @@ function Table({data}: TableProps) {
         <table className="min-w-full bg-white rounded-lg">
           <thead>
             <tr className="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
-              {orderColumns(columns).map((column) => (
+              {orderColumns(columns)?.map((column) => (
                 <th key={column} className="py-3 px-6 text-left">
                   {column}
                 </th>
@@ -101,12 +108,12 @@ function Table({data}: TableProps) {
             ) : (
               rows?.map((item, index) => (
                 <tr key={index} className="border-b border-gray-200 hover:bg-gray-50">
-                  {orderColumns(columns).map((column) => (
+                  {orderColumns(columns)?.map((column) => (
                     <td key={column} className="py-3 px-6 text-left whitespace-nowrap">
                       {column === 'imageLink' ? (
                         <>
                           <img
-                            alt={`Imagen de perfil de ${item.title}`}
+                            alt={`Imagen de ${item.title}`}
                             className={`${
                               data.title === 'Banners'
                                 ? ' w-full h-44 '

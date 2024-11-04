@@ -38,10 +38,9 @@ const HomePage = () => {
               />
             ),
         )}
+        <h2 className="text-2xl font-semibold text-titleColor ">Los más destacados</h2>
         <div className="flex gap-4 overflow-auto">
-          {books.map((book) => (
-            <CoverBooks key={book.id} item={book} />
-          ))}
+          {books?.map((book) => <CoverBooks key={book.id} item={book} />)}
         </div>
       </article>
     </>

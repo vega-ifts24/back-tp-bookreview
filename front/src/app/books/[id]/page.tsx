@@ -85,9 +85,7 @@ const BookPage = ({params}: {params: {id: string}}) => {
         <article>
           <h2 className="text-lg font-semibold">Reseñas</h2>
           <div>
-            {reviews.map((review) => (
-              <CardReviewDefault key={review.id} review={review} />
-            ))}
+            {reviews?.map((review) => <CardReviewDefault key={review.id} review={review} />)}
           </div>
         </article>
       )}
