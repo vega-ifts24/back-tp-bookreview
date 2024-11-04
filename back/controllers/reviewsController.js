@@ -76,7 +76,7 @@ export const getReviewsByToken = async (req, res) => {
 
     // Consigo la review con el libro segun la columna bookId de la tabla reviews
     const [rows] = await connection.query(
-      "SELECT reviews.*, books.id as bookId, books.title, books.author FROM `book-review`.reviews JOIN books ON reviews.bookId = books.id WHERE reviews.userId = ?",
+      "SELECT reviews.*, books.id as bookId, books.title, books.author FROM reviews JOIN books ON reviews.bookId = books.id WHERE reviews.userId = ?",
       [id]
     );
 

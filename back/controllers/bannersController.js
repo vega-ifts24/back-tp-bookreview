@@ -4,9 +4,7 @@ import { connection } from "../database/index.js"; // Importar la conexión a la
 // Obtener todos los Banners
 export const getAllBanners = async (req, res) => {
   try {
-    const [rows] = await connection.query(
-      "SELECT * FROM `book-review`.banners"
-    );
+    const [rows] = await connection.query("SELECT * FROM banners");
     res.status(200).send({
       error: false,
       body: rows,
@@ -25,7 +23,7 @@ export const getBannerById = async (req, res) => {
   const { id } = req.params;
   try {
     const [rows] = await connection.query(
-      "SELECT * FROM `book-review`.banners WHERE id = ?",
+      "SELECT * FROM banners WHERE id = ?",
       [id]
     );
     if (rows.length === 0) {
@@ -52,7 +50,7 @@ export const createBanner = async (req, res) => {
 
   try {
     const result = await connection.query(
-      "INSERT INTO `book-review`.banners (title, imageLink, `section`) VALUES (?, ?, ?)",
+      "INSERT INTO banners (title, imageLink, `section`) VALUES (?, ?, ?)",
       [title, imageLink, section]
     );
     res.status(200).send({
@@ -74,7 +72,7 @@ export const updateBanner = async (req, res) => {
   const { id } = req.params;
   try {
     const [result] = await connection.query(
-      "UPDATE `book-review`.banners SET title = ?, imageLink = ?, `section` = ? WHERE id = ?",
+      "UPDATE banners SET title = ?, imageLink = ?, `section` = ? WHERE id = ?",
       [title, imageLink, section, id]
     );
 
@@ -96,7 +94,7 @@ export const deleteBanner = async (req, res) => {
   const { id } = req.params;
   try {
     const [result] = await connection.query(
-      "DELETE FROM `book-review`.banners WHERE id = ?",
+      "DELETE FROM banners WHERE id = ?",
       [id]
     );
     res.status(200).send({

@@ -4,7 +4,7 @@ import { connection } from "../database/index.js"; // Importar la conexión a la
 // Obtener todos los Roles
 export const getAllRoles = async (req, res) => {
   try {
-    const [rows] = await connection.query("SELECT * FROM `book-review`.roles");
+    const [rows] = await connection.query("SELECT * FROM roles");
     res.status(200).send({
       error: false,
       body: rows,
@@ -22,10 +22,9 @@ export const getAllRoles = async (req, res) => {
 export const getRolById = async (req, res) => {
   const { id } = req.params;
   try {
-    const [rows] = await connection.query(
-      "SELECT * FROM `book-review`.roles WHERE id = ?",
-      [id]
-    );
+    const [rows] = await connection.query("SELECT * FROM roles WHERE id = ?", [
+      id,
+    ]);
     if (rows.length === 0) {
       throw { status: 404, message: "Rol no encontrado." };
     } else {
@@ -48,7 +47,7 @@ export const createRol = async (req, res) => {
   const { name, description } = req.body;
   try {
     const result = await connection.query(
-      "INSERT INTO `book-review`.roles (name, description)  VALUES (?,?)",
+      "INSERT INTO roles (name, description)  VALUES (?,?)",
       [name, description]
     );
     res.status(200).send({
@@ -71,7 +70,7 @@ export const updateRol = async (req, res) => {
   const { id } = req.params;
   try {
     const [result] = await connection.query(
-      "UPDATE `book-review`.roles SET name = ?, description = ? WHERE id = ?",
+      "UPDATE roles SET name = ?, description = ? WHERE id = ?",
       [name, description, id]
     );
     res.status(200).send({
@@ -91,10 +90,9 @@ export const updateRol = async (req, res) => {
 export const deleteRol = async (req, res) => {
   const { id } = req.params;
   try {
-    const [result] = await connection.query(
-      "DELETE FROM `book-review`.roles WHERE id = ?",
-      [id]
-    );
+    const [result] = await connection.query("DELETE FROM roles WHERE id = ?", [
+      id,
+    ]);
     res.status(200).send({
       error: false,
       body: null,

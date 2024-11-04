@@ -28,7 +28,7 @@ export const getAllBooks = async (req, res) => {
 
     // Si no tengo parametros de busqueda, traigo todos los libros
     const [rows] = await connection.query(
-      "SELECT books.*, genders.name AS gender_name  FROM `book-review`.books  LEFT JOIN `book-review`.genders ON books.genderId = genders.id"
+      "SELECT books.*, genders.name AS gender_name  FROM books  LEFT JOIN genders ON books.genderId = genders.id"
     );
 
     res.status(200).send({

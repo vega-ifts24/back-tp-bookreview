@@ -4,9 +4,7 @@ import { connection } from "../database/index.js"; // Importar la conexión a la
 // Obtener todos los géneros
 export const getAllGenders = async (req, res) => {
   try {
-    const [rows] = await connection.query(
-      "SELECT * FROM `book-review`.genders"
-    );
+    const [rows] = await connection.query("SELECT * FROM genders");
     res.status(200).send({
       error: false,
       body: rows,
@@ -25,7 +23,7 @@ export const getGenderById = async (req, res) => {
   const { id } = req.params;
   try {
     const [rows] = await connection.query(
-      "SELECT * FROM `book-review`.genders WHERE id = ?",
+      "SELECT * FROM genders WHERE id = ?",
       [id]
     );
     if (rows.length === 0) {
@@ -51,7 +49,7 @@ export const createGender = async (req, res) => {
   console.log(name);
   try {
     const result = await connection.query(
-      "INSERT INTO `book-review`.genders (name) VALUES (?)",
+      "INSERT INTO genders (name) VALUES (?)",
       [name]
     );
     res.status(200).send({
@@ -73,7 +71,7 @@ export const updateGender = async (req, res) => {
   const { id } = req.params;
   try {
     const [result] = await connection.query(
-      "UPDATE `book-review`.genders SET name = ? WHERE id = ?",
+      "UPDATE genders SET name = ? WHERE id = ?",
       [name, id]
     );
     res.status(200).send({
@@ -94,7 +92,7 @@ export const deleteGender = async (req, res) => {
   const { id } = req.params;
   try {
     const [result] = await connection.query(
-      "DELETE FROM `book-review`.genders WHERE id = ?",
+      "DELETE FROM genders WHERE id = ?",
       [id]
     );
     res.status(200).send({
