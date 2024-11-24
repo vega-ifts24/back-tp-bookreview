@@ -63,7 +63,7 @@ const BookPage = ({params}: {params: {id: string}}) => {
   }, [params.id]) // eslint-disable-line
 
   return (
-    <>
+    <section className=" gap-4 flex flex-col">
       {book && (
         <article className="flex gap-4 flex-wrap">
           <img
@@ -82,14 +82,14 @@ const BookPage = ({params}: {params: {id: string}}) => {
         </article>
       )}
       {reviews && (
-        <article>
+        <article className="gap-4 flex flex-col">
           <h2 className="text-lg font-semibold">Reseñas</h2>
-          <div>
+          <div className="gap-4 flex flex-col">
             {reviews?.map((review) => <CardReviewDefault key={review.id} review={review} />)}
           </div>
         </article>
       )}
-    </>
+    </section>
   )
 }
 

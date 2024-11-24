@@ -20,7 +20,7 @@ const CardReviewDefault = ({review}: CardReviewDefaultProps) => {
         <div className="flex gap-2 items-center">
           <img
             alt={`${review.first_name} ${review.surname}`}
-            className="w-8 h-8 rounded-full"
+            className="w-8 h-8 rounded-full clip-path-circle"
             src={process.env.NEXT_PUBLIC_API_URL + review.imageLink || user_profile.src}
           />
           <p className="text-sm font-semibold">

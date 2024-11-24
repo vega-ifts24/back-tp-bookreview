@@ -3,6 +3,7 @@ import {PencilSimple, Trash} from '@phosphor-icons/react'
 import {JSX} from 'react'
 
 import StyledButton from '../buttons/StyledButton'
+import SpinLoader from '../loaders/SpinLoader'
 
 import logo from '@/assets/logo.png'
 import {useAuthStore} from '@/store/useAuthStore'
@@ -23,10 +24,12 @@ interface TableProps {
   }
 }
 function Table({data}: TableProps) {
-  const [loading, setLoading] = useState(true)
-  const user = useAuthStore((state) => state.user)
   const setModal = useModalStore((state) => state.setModal)
+  const user = useAuthStore((state) => state.user)
+
+  const [loading, setLoading] = useState(true)
   const [rows, setRows] = useState<any[]>([])
+
   const fetchData = async () => {
     setLoading(true)
     try {
@@ -37,7 +40,6 @@ function Table({data}: TableProps) {
       setRows(responseData?.body)
     } catch (error) {
       console.error('Error al obtener los datos: ', error) // eslint-disable-line
-      // Manejo de errores (opcional)
     } finally {
       setLoading(false)
     }
@@ -82,7 +84,9 @@ function Table({data}: TableProps) {
 
   return (
     <div className="overflow-x-auto">
-      {rows?.length === 0 ? (
+      {loading ? (
+        <SpinLoader extraStyles={' w-full '} textLoader="Cargando tabla..." />
+      ) : rows?.length === 0 ? (
         <p>No hay datos</p>
       ) : (
         <table className="min-w-full bg-white rounded-lg">
@@ -99,84 +103,70 @@ function Table({data}: TableProps) {
             </tr>
           </thead>
           <tbody className="text-gray-700 text-sm font-light">
-            {loading ? (
-              <tr>
-                <td className="py-3 text-center" colSpan={columns.length + 1}>
-                  Cargando...
-                </td>
-              </tr>
-            ) : (
-              rows?.map((item, index) => (
-                <tr key={index} className="border-b border-gray-200 hover:bg-gray-50">
-                  {orderColumns(columns)?.map((column) => (
-                    <td key={column} className="py-3 px-6 text-left whitespace-nowrap">
-                      {column === 'imageLink' ? (
-                        <>
-                          <img
-                            alt={`Imagen de ${item.title}`}
-                            className={`${
-                              data.title === 'Banners'
-                                ? ' w-full h-44 '
-                                : data.title === 'Usuarios'
-                                  ? ' w-20 h-20 rounded-full '
-                                  : ' w-36 h-56 '
-                            }  rounded-md bg-backgroundNavbar object-cover  self-center`}
-                            src={process.env.NEXT_PUBLIC_API_URL + item[column] || logo?.src}
-                          />
-                          <a
-                            href={process.env.NEXT_PUBLIC_API_URL + item[column]}
-                            rel="noreferrer"
-                            target="_blank"
-                          >
-                            {process.env.NEXT_PUBLIC_API_URL + item[column]}
-                          </a>
-                        </>
-                      ) : // Si es tipo fecha y es necesario formatear (puede ser cualquie columna)
-                      isTypeDate(item[column]) ? (
-                        formatDate(item[column])
-                      ) : (
-                        item[column]
+            {rows?.map((item, index) => (
+              <tr key={index} className="border-b border-gray-200 hover:bg-gray-50">
+                {orderColumns(columns)?.map((column) => (
+                  <td key={column} className="py-3 px-6 text-left whitespace-nowrap">
+                    {column === 'imageLink' ? (
+                      <>
+                        <img
+                          alt={`Imagen de ${item.title}`}
+                          className={`${
+                            data.title === 'Banners'
+                              ? ' min-w-56 w-full h-44 '
+                              : data.title === 'Usuarios' || data.title === 'Reseñas'
+                                ? ' w-20 h-20 clip-path-circle'
+                                : ' min-w-36 h-56 '
+                          }  rounded-md bg-backgroundNavbar object-cover  self-center`}
+                          src={process.env.NEXT_PUBLIC_API_URL + item[column] || logo?.src}
+                        />
+                      </>
+                    ) : // Si es tipo fecha y es necesario formatear (puede ser cualquie columna)
+                    isTypeDate(item[column]) ? (
+                      formatDate(item[column])
+                    ) : (
+                      item[column]
+                    )}
+                  </td>
+                ))}
+                {(data?.onEdit || data?.onDelete) && (
+                  <td className="text-left sticky right-0 bg-white z-10">
+                    <div className="border-l-2 flex items-center space-x-4 py-3 px-6">
+                      {data?.onEdit && (
+                        <StyledButton
+                          icon={<PencilSimple color="blue" size={16} />}
+                          onClick={() =>
+                            setModal({
+                              visibilty: true,
+                              title: `Editar ${item.title}`,
+                              children: cloneElement(data.form as any, {
+                                typeForm: 'edit',
+                                prevData: item,
+                                reloadData: fetchData,
+                              }),
+                            })
+                          }
+                        />
                       )}
-                    </td>
-                  ))}
-                  {(data?.onEdit || data?.onDelete) && (
-                    <td className="text-left sticky right-0 bg-white z-10">
-                      <div className="border-l-2 flex items-center space-x-4 py-3 px-6">
-                        {data?.onEdit && (
-                          <StyledButton
-                            icon={<PencilSimple color="blue" size={16} />}
-                            onClick={() =>
-                              setModal({
-                                visibilty: true,
-                                title: `Editar ${item.title}`,
-                                children: cloneElement(data.form as any, {
-                                  typeForm: 'edit',
-                                  prevData: item,
-                                }),
+                      {data?.onDelete && (
+                        <StyledButton
+                          icon={<Trash color="red" size={16} />}
+                          onClick={async () => {
+                            if (data?.onDelete) {
+                              await data.onDelete({
+                                id: item.id,
+                                token: user.token,
                               })
                             }
-                          />
-                        )}
-                        {data?.onDelete && (
-                          <StyledButton
-                            icon={<Trash color="red" size={16} />}
-                            onClick={async () => {
-                              if (data?.onDelete) {
-                                await data.onDelete({
-                                  id: item.id,
-                                  token: user.token,
-                                })
-                              }
-                              window.location.reload() // eslint-disable-line
-                            }}
-                          />
-                        )}
-                      </div>
-                    </td>
-                  )}
-                </tr>
-              ))
-            )}
+                            fetchData()
+                          }}
+                        />
+                      )}
+                    </div>
+                  </td>
+                )}
+              </tr>
+            ))}
           </tbody>
         </table>
       )}

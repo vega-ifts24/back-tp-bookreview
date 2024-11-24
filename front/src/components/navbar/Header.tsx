@@ -61,7 +61,7 @@ const Header = () => {
                 >
                   <img
                     alt={`Imagen de perfil de ${user.first_name}`}
-                    className="w-8 h-8 rounded-full bg-background"
+                    className="w-8 h-8 rounded-full bg-background clip-path-circle"
                     src={process.env.NEXT_PUBLIC_API_URL + user?.imageLink || profile_image.src}
                   />
                   <p className="md:hidden text-sm font-light">

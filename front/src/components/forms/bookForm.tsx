@@ -14,9 +14,10 @@ import {GenderI} from '@/types/gender'
 interface BookFormProps {
   typeForm?: string
   prevData?: any
+  reloadData?: () => void
 }
 
-const BookForm = ({typeForm, prevData}: BookFormProps) => {
+const BookForm = ({typeForm, prevData, reloadData}: BookFormProps) => {
   const user = useAuthStore((state) => state.user)
   const getAllGenders = useGenderStore((state) => state.getAllGenders)
   const createBook = useBookStore((state) => state.createBook)
@@ -38,8 +39,8 @@ const BookForm = ({typeForm, prevData}: BookFormProps) => {
       } else {
         await createBook({token: user.token, formData})
       }
+      reloadData && reloadData()
       closeModal()
-      window.location.reload() // eslint-disable-line
     } catch (error) {
       console.error('An error occurred:', error) // eslint-disable-line
     }

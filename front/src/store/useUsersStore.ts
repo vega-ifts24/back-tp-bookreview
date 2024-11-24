@@ -21,9 +21,11 @@ export interface UserStoreI {
     }
   }) => Promise<JSONResponse<UserI>>
   editUser: ({
+    id,
     token,
     formData,
   }: {
+    id: number
     token: string
     formData: {
       first_name: string
@@ -31,7 +33,7 @@ export interface UserStoreI {
       birth_date: string
     }
   }) => Promise<JSONResponse<UserI>>
-  deleteUser: ({token}: {token: string}) => Promise<JSONResponse<UserI>>
+  deleteUser: ({id, token}: {id: number; token: string}) => Promise<JSONResponse<UserI>>
 }
 
 export const useUsersStore = create<UserStoreI>()(

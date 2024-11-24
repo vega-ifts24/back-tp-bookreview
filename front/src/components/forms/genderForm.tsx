@@ -11,9 +11,10 @@ import {useModalStore} from '@/store/useModalStore'
 interface GenderFormProps {
   typeForm?: string
   prevData?: any
+  reloadData?: () => void
 }
 
-const GenderForm = ({typeForm, prevData}: GenderFormProps) => {
+const GenderForm = ({typeForm, prevData, reloadData}: GenderFormProps) => {
   const createGender = useGenderStore((state) => state.createGender)
   const editGender = useGenderStore((state) => state.editGender)
   const closeModal = useModalStore((state) => state.closeModal)
@@ -31,8 +32,8 @@ const GenderForm = ({typeForm, prevData}: GenderFormProps) => {
       } else {
         await createGender({token: user.token, formData})
       }
+      reloadData && reloadData()
       closeModal()
-      window.location.reload() // eslint-disable-line
     } catch (error) {
       console.error('An error occurred:', error) // eslint-disable-line
     }

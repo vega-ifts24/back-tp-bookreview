@@ -12,9 +12,10 @@ import {useModalStore} from '@/store/useModalStore'
 interface BannerFormProps {
   typeForm?: string
   prevData?: any
+  reloadData?: () => void
 }
 
-const BannerForm = ({typeForm, prevData}: BannerFormProps) => {
+const BannerForm = ({typeForm, prevData, reloadData}: BannerFormProps) => {
   const user = useAuthStore((state) => state.user)
   const createBanner = useBannerStore((state) => state.createBanner)
   const editBanner = useBannerStore((state) => state.editBanner)
@@ -34,8 +35,8 @@ const BannerForm = ({typeForm, prevData}: BannerFormProps) => {
       } else {
         await createBanner({token: user.token, formData})
       }
-      // closeModal()
-      // window.location.reload() // eslint-disable-line
+      reloadData && reloadData()
+      closeModal()
     } catch (error) {
       console.error('An error occurred:', error) // eslint-disable-line
     }

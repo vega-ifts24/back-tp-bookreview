@@ -105,7 +105,9 @@ export const useAuthStore = create<AuthI>()(
             const token = await get().generateToken(email, password)
 
             if (token?.body && token.body[0]?.token) {
+              document.cookie = `token=${token.body[0].token}` // eslint-disable-line
               await get().getUserDataByToken(token.body[0].token || '')
+
               router.push('/')
             }
           } catch (error) {

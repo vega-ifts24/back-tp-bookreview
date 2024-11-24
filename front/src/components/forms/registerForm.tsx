@@ -44,7 +44,7 @@ const RegisterForm: FC = () => {
         {/* Imagen de perfil */}
         <img
           alt={`Imagen de perfil de ${formData.first_name}`}
-          className="w-24 h-24 rounded-full bg-backgroundNavbar object-cover  self-center"
+          className="w-24 h-24 rounded-full clip-path-circle bg-backgroundNavbar object-cover  self-center"
           src={
             typeof formData?.imageLink === 'string' && formData?.imageLink?.includes('uploads')
               ? process.env.NEXT_PUBLIC_API_URL + formData?.imageLink

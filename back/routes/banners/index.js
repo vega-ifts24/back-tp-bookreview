@@ -15,6 +15,6 @@ router.get("/", getAllBanners);
 router.get("/:id", authMiddleWare, getBannerById);
 router.post("/", authMiddleWare, upload.single("imageLink"), createBanner);
 router.delete("/:id", authMiddleWare, deleteBanner);
-router.put("/:id", authMiddleWare, updateBanner);
+router.put("/:id", authMiddleWare, upload.single("imageLink"), updateBanner);
 
 export default router;

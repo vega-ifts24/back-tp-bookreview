@@ -49,7 +49,7 @@ export const createBanner = async (req, res) => {
   const imageLink = req.file ? `/uploads/${req.file.filename}` : null; // Ruta de la imagen
 
   try {
-    const result = await connection.query(
+    await connection.query(
       "INSERT INTO banners (title, imageLink, `section`) VALUES (?, ?, ?)",
       [title, imageLink, section]
     );
@@ -68,15 +68,17 @@ export const createBanner = async (req, res) => {
 
 // Actualizar un Banner existente
 export const updateBanner = async (req, res) => {
-  const { title, imageLink, section } = req.body;
+  const { title, section } = req.body;
   const { id } = req.params;
-  console.log(req.body, "");
-  try {
-    const [result] = await connection.query(
-      "UPDATE banners SET title = ?, imageLink = ?, `section` = ? WHERE id = ?",
-      [title, imageLink, section, id]
-    );
+  const imageLink = req.file ? `/uploads/${req.file.filename}` : null; // Ruta de la imagen
 
+  try {
+    await connection.query(
+      `UPDATE banners SET title = ?, ${
+        imageLink ? "imageLink = ?, " : ""
+      } \`section\` = ? WHERE id = ?`,
+      imageLink ? [title, imageLink, section, id] : [title, section, id]
+    );
     res.status(200).send({
       error: false,
       body: null,

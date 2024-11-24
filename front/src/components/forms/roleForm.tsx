@@ -11,9 +11,10 @@ import {useModalStore} from '@/store/useModalStore'
 interface RoleFormProps {
   typeForm?: string
   prevData?: any
+  reloadData?: () => void
 }
 
-const RoleForm = ({typeForm, prevData}: RoleFormProps) => {
+const RoleForm = ({typeForm, prevData, reloadData}: RoleFormProps) => {
   const user = useAuthStore((state) => state.user)
   const editRole = useRolesStore((state) => state.editRole)
   const createRole = useRolesStore((state) => state.createRole)
@@ -32,8 +33,8 @@ const RoleForm = ({typeForm, prevData}: RoleFormProps) => {
       } else {
         await createRole({token: user.token, formData})
       }
+      reloadData && reloadData()
       closeModal()
-      window.location.reload() // eslint-disable-line
     } catch (error) {
       console.error('An error occurred:', error) // eslint-disable-line
     }

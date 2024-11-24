@@ -10,6 +10,7 @@ const CoverBooks = ({item}: CoverBooksProps) => {
       <img
         alt={item.title}
         className="w-36 min-w-36  h-56 rounded-md bg-gray-200 object-cover "
+        loading="lazy"
         src={process.env.NEXT_PUBLIC_API_URL + item.imageLink}
       />
     </a>

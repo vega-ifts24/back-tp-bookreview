@@ -8,15 +8,10 @@ export const register = async (req, res) => {
     const { first_name, surname, email, password, birth_date } = req.body;
     const imageLink = req.file ? `/uploads/${req.file.filename}` : null; // Ruta de la imagen
 
-    console.log(req.file);
-    console.log(req.body);
-
     // Campos obligatorios
     if (!first_name || !surname || !email || !password || !birth_date) {
       throw "Debe completar todos los campos para registrarse.";
     }
-
-    console.log(first_name, surname, email, password, birth_date, imageLink);
 
     // Chequeo que el mail no esté en uso
     const [rows] = await connection.query(

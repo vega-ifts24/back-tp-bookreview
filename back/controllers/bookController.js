@@ -94,12 +94,14 @@ export const updateBook = async (req, res) => {
   const { title, author, genderId } = req.body;
   const imageLink = req.file ? `/uploads/${req.file.filename}` : null; // Ruta de la imagen
 
-  console.log(title, author, genderId, imageLink, req.file);
-
   try {
     const [result] = await connection.query(
-      "UPDATE books SET title = ?, imageLink = ?, author = ?, genderId = ? WHERE id = ?",
-      [title, imageLink, author, genderId, id]
+      `UPDATE books SET title = ?, ${
+        imageLink ? "imageLink = ?, " : ""
+      } author = ?, genderId = ? WHERE id = ?`,
+      imageLink
+        ? [title, imageLink, author, genderId, id]
+        : [title, author, genderId, id]
     );
 
     if (result.affectedRows === 0) {

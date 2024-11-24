@@ -33,7 +33,8 @@ const HomePage = () => {
               <img
                 key={banner?.id}
                 alt={banner.title}
-                className="w-full object-cover rounded-md max-h-[65vh]"
+                className={`w-full object-cover rounded-md ${banners?.length ? 'max-h-[65vh] ' : ' h-[45vh] bg-gray-200 animation-pulse '}   `}
+                loading="lazy"
                 src={process.env.NEXT_PUBLIC_API_URL + banner.imageLink}
               />
             ),
