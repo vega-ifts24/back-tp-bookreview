@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📚 Book Reviews Website
+https://bookreview-ifts24.vercel.app/
 
-## Getting Started
+Este proyecto es una página de recomendaciones y reseñas de libros, desarrollada con NextJS. Los usuarios pueden iniciar sesión, leer reseñas de libros y dejar sus propias reseñas. El objetivo de la aplicación es compartir opiniones y calificaciones sobre libros de una manera intuitiva y visualmente atractiva.
+En este proyecto no se evalúo front-end, sino la funcionalidad de la página y la interacción con las apis.
 
-First, run the development server:
+## 🚀 Características
+Tenemos 3 tipos de usuarios:
+- **Usuario no registrado**: Puede ver las reseñas de los libros.
+- **Usuario registrado**: Puede ver las reseñas de los libros y dejar su propia reseña.
+- **Administrador**: Puede gestionar todas las tablas de la base de datos.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 📝 Estructura del Proyecto
+
+La estructura básica del proyecto es la siguiente:
+
+```
+├── components/       # Componentes de la aplicación.
+├── pages/            # Páginas de la aplicación.
+├── public/           # Archivos estáticos de la aplicación.
+├── styles/           # Estilos globales de la aplicación.
+├── utils/            # Funciones y utilidades de la aplicación.
+├── README.md         # Descripción del proyecto.
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Tecnologías utilizadas
+- **Next JS**
+- **Tailwind**
+- **FlowBite**
+- **TypeScript**
+- **ESLint**
+- **Zustand**
+- **Sooner**
+- **Phospor**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Información adicional
+El deploy lo hice en Vercel conectando la cuenta a github.
+Apoyo en FlowBite para los estilos de los inputs.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Capturas de pantalla
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+![image](screenshots/1.png)
+![image](screenshots/2.png)
+![image](screenshots/3.png)
+![image](screenshots/4.png)
+![image](screenshots/5.png)
+![image](screenshots/6.png)
+![image](screenshots/7.png)
+![image](screenshots/8.png)
+![image](screenshots/9.png)
+![image](screenshots/10.png)

@@ -46,7 +46,6 @@ const LoginForm: FC = () => {
           onClick={handleSubmit}
         />
       </form>
-      <StyledButton text="Registrarse" />
     </article>
   )
 }

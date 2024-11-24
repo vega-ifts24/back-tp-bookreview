@@ -2,15 +2,25 @@
 
 Este proyecto es una API para la gestión de libros y reseñas, construida con Node.js, Express y MySQL. Permite realizar operaciones CRUD (Crear, Leer, Actualizar y Eliminar) en una base de datos de libros.
 
-Actualmente solo está hecho gestión de libros. 
 
-## Requisitos
-
-Antes de comenzar, asegúrate de tener instalados los siguientes programas en tu máquina:
+## Características
 
 - [Node.js](https://nodejs.org/) (versión 12 o superior)
 - [MySQL](https://www.mysql.com/) (versión 5.7 o superior)
+- [Express](https://expressjs.com/) (versión 4.17 o superior)
+- [bcrypt](https://www.npmjs.com/package/bcrypt) (para encriptar contraseñas)
+- [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) (para autenticación de usuarios)
+- [mysql2](https://www.npmjs.com/package/mysql2) (para conectarse a la base de datos MySQL)
+- [dotenv](https://www.npmjs.com/package/dotenv) (para cargar variables de entorno desde un archivo `.env`)
+- [cors](https://www.npmjs.com/package/cors) (para permitir solicitudes de otros dominios)
+- [nodemon](https://www.npmjs.com/package/nodemon) (para reiniciar automáticamente el servidor al guardar cambios)
+- [multer](https://www.npmjs.com/package/multer) (para subir archivos)
+- [chalk](https://www.npmjs.com/package/chalk) (para dar color a la consola)
 - [Postman](https://www.postman.com/) (opcional, para realizar pruebas de la API)
+
+## Información adicional
+El deploy de la api y el almacenamiento de la base de datos lo hice en always data https://admin.alwaysdata.com/ . Conecté el repositorio de github a través de SSH, por lo que cada cambio que hacía solo tenía que pullear y hacer el re-deploy de la api. 
+
 
 ## Configuración del Proyecto
 
@@ -122,7 +132,7 @@ Antes de comenzar, asegúrate de tener instalados los siguientes programas en tu
 
 Puedes usar [Postman](https://www.postman.com/) para interactuar con la API. Importa la colección de Postman que contiene las solicitudes para gestionar los libros:
 
-[Postman Collection - Books Admin](https://www.postman.com/nativegaifts24/ifts24-back/collection/kpgsybx/books-admin)
+[Postman Collection - Books Admin](back/collectionPostman.json)
 
 ## Capturas de Pantalla
 
