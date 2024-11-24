@@ -27,7 +27,7 @@ _En el readme de front más data_
 
 https://bookreview-ifts24.vercel.app/
 
-Este proyecto es una página de recomendaciones y reseñas de libros, desarrollada con NextJS. Los usuarios pueden iniciar sesión, leer reseñas de libros y dejar sus propias reseñas. El objetivo de la aplicación es compartir opiniones y calificaciones sobre libros de una manera intuitiva y visualmente atractiva.
+Este proyecto es una página de recomendaciones y reseñas de libros, desarrollada con NextJS (para la primer entrega se utilizo html, css y javascript vanilla). Los usuarios pueden iniciar sesión, leer reseñas de libros y dejar sus propias reseñas. El objetivo de la aplicación es compartir opiniones y calificaciones sobre libros de una manera intuitiva y visualmente atractiva.
 El front no fue evaluado, solo la funcionalidad de la página y la interacción con las apis.
 
 ## 🖥️ Capturas

@@ -13,6 +13,7 @@ const Footer = () => {
       </section>
       <section className="w-full">
         <p className=" w-full">© Booker&apos;s</p>
+        <p>By Natalia Vega</p>
       </section>
     </footer>
   )
