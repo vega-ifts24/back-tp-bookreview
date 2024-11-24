@@ -115,14 +115,21 @@ export const useBannerStore = create<BannerStoreI>()(
           }
         },
         editBanner: async ({id, token, formData}) => {
+          const formatedData = new FormData()
+
+          formatedData.append('title', formData.title)
+          formatedData.append('section', formData.section)
+          if (formData.imageLink) {
+            formatedData.append('imageLink', formData.imageLink)
+          }
+
           try {
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/banners/${id}`, {
               method: 'PUT',
               headers: {
-                'Content-Type': 'application/json',
                 Authorization: `Bearer ${token}`,
               },
-              body: JSON.stringify(formData),
+              body: formatedData,
             })
 
             const data = await response.json()

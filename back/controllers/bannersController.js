@@ -70,6 +70,7 @@ export const createBanner = async (req, res) => {
 export const updateBanner = async (req, res) => {
   const { title, imageLink, section } = req.body;
   const { id } = req.params;
+  console.log(req.body, "");
   try {
     const [result] = await connection.query(
       "UPDATE banners SET title = ?, imageLink = ?, `section` = ? WHERE id = ?",
